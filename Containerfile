@@ -14,9 +14,9 @@ RUN \
 
 RUN /scripts/packages.sh && \
     /scripts/cosmic.sh && \
-    /scripts/homebrew&& \
+    /scripts/homebrew.sh && \
     /scripts/flatpaks.sh && \
-    /scripts/services && \
-    /scripts/fonts && \
+    /scripts/services.sh && \
+    /scripts/fonts.sh && \
     /scripts/cleanup.sh && \
     ostree container commit
