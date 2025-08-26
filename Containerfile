@@ -7,6 +7,13 @@ FROM ghcr.io/ublue-os/base-main AS dune-os
 COPY system /
 COPY scripts /scripts
 
+RUN \
+    for script in $(ls /scripts); do \
+        chmod +x $script; \
+    done
+
+RUN setenforce 0
+
 RUN /scripts/packages.sh && \
     /scripts/cosmic.sh && \
     /scripts/homebrew&& \
