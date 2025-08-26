@@ -23,4 +23,4 @@ packages=(
 dnf5 -y install ${packages[@]}
 
 # chsh -s $(which zsh)
-useradd -m -r -u 1000 -g users root -s $(which zsh)
+usermod --shell $(which zsh) root
