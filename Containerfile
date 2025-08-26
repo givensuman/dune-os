@@ -52,17 +52,10 @@ RUN --mount=type=cache,dst=/var/cache/rpm-ostree \
 RUN --mount=type=cache,dst=/var/cache/rpm-ostree \
     --mount=type=bind,from=ctx,source=/,target=/ctx \
     rpm-ostree install \
-    bat \
-    eza \
-    fd \
     ffmpeg \
-    fzf \
-    git \
     ghostty \
-    nvim \
-    ripgrep \
+    git \
     vlc \
-    zoxide \
     zsh \
     || true && \
     ostree container commit
@@ -96,6 +89,20 @@ RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
     --mount=type=tmpfs,dst=/tmp \
     dnf5 install -y --enable-repo=copr:copr.fedorainfracloud.org:ublue-os:packages \
     ublue-os-media-automount-udev && \
+    ostree container commit
+
+# Install Flatpaks
+RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
+    --mount=type=tmpfs,dst=/tmp \
+    FLATPAK_LIST="$(curl https://raw.githubusercontent.com/givensuman/dune-os/refs/heads/main/flatpaks | tr '\n' ' ')" && \
+    flatpak --system -y install --or-update flathub ${FLATPAK_LIST} && \
+    ostree container commit
+
+# Install fonts
+RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
+    --mount=type=tmpfs,dst=/tmp \
+    tar -xzf /fonts/*.tar.gz ~/.local/share/fonts || true && \
+    rm -rf /fonts && \
     ostree container commit
 
 # Finalize
