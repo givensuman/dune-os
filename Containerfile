@@ -1,7 +1,7 @@
-ARG BASE_IMAGE_NAME="${BASE_IMAGE_NAME:-base-main}"
-ARG IMAGE_TAG="${IMAGE_TAG:-stable}"
+# ARG BASE_IMAGE_NAME="${BASE_IMAGE_NAME:-base-main}"
+# ARG IMAGE_TAG="${IMAGE_TAG:-stable}"
 
-FROM ghcr.io/ublue-os/${BASE_IMAGE_NAME}:${IMAGE_TAG} AS dune-os
+FROM ghcr.io/ublue-os/base-main AS dune-os
 
 # Copying system files into main image
 COPY system /
