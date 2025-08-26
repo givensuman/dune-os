@@ -12,5 +12,3 @@ systemctl disable brew-upgrade.timer
 systemctl disable brew-update.timer
 
 systemctl --global enable podman.socket
-systemctl enable docker.socket
-usermod -aG docker $USER
