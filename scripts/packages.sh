@@ -2,7 +2,8 @@
 
 set -ouex pipefail
 
-dnf5 -y config-manager setopt "terra".enabled=true
+curl -fsSL https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo | pkexec tee /etc/yum.repos.d/terra.repo
+dnf5 -y install terra-release
 
 packages=(
     ffmpeg

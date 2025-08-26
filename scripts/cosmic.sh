@@ -10,6 +10,7 @@ else
     https://copr.fedorainfracloud.org/coprs/ryanabx/cosmic-epoch/repo/fedora-$(rpm -E %fedora)/ryanabx-cosmic-epoch-fedora-$(rpm -E %fedora).repo
 fi
 
+dnf copr enable ryanabx/cosmic-epoch
 dnf5 -y install cosmic-desktop
 
 # Install GNOME applications
