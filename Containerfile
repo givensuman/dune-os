@@ -1,4 +1,4 @@
-ARG BASE_IMAGE_NAME="${BASE_IMAGE_NAME:-base}"
+ARG BASE_IMAGE_NAME="${BASE_IMAGE_NAME:-base-main}"
 ARG IMAGE_TAG="${IMAGE_TAG:-stable}"
 
 FROM ghcr.io/ublue-os/${BASE_IMAGE_NAME}:${IMAGE_TAG} AS dune-os
