@@ -2,11 +2,8 @@
 
 set -ouex pipefail
 
-dnf5 -y remove \
-firefox \
-firefox-langpacks \
-|| true && \
-&& rm -rf /usr/share/mozilla
+dnf5 -y remove firefox firefox-langpacks
+rm -rf /usr/share/mozilla
 
 flatpaks=(
     app/com.github.tchx84.Flatseal/x86_64/stable
