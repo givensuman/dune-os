@@ -2,6 +2,7 @@
 
 set -ouex pipefail
 
-tar -xzf /fonts/*.tar.gz -C ~/.local/share/fonts
+tar -xzf /fonts/Inter.tar.gz -C ~/.local/share/fonts
+tar -xzf /fonts/Hack.tar.gz -C ~/.local/share/fonts
 
 rm -rf /fonts
