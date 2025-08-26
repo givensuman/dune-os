@@ -9,7 +9,7 @@ COPY scripts /scripts
 
 RUN \
     for script in $(ls /scripts); do \
-        chmod +x $script; \
+        chmod +x /scripts/$script; \
     done
 
 RUN setenforce 0
