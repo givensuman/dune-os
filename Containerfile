@@ -6,6 +6,16 @@ FROM ghcr.io/ublue-os/base-main AS dune-os
 # Copying system files into main image
 COPY system /
 
+# Clean
+RUN \
+    set -eoux pipefail && \
+    shopt -s extglob && \
+    dnf5 clean all && \
+    rm -rf /tmp/* || true && \
+    rm -rf /var/!(cache) && \
+    rm -rf /var/cache/!(rpm-ostree) && \
+    ostree container commit
+
 # Setup COPR repos
 RUN \
     if [[ "${FEDORA_MAJOR_VERSION}" == "rawhide" ]]; then \
@@ -14,18 +24,16 @@ RUN \
     ; else curl -Lo /etc/yum.repos.d/_copr_ryanabx-cosmic.repo \
     https://copr.fedorainfracloud.org/coprs/ryanabx/cosmic-epoch/repo/fedora-$(rpm -E %fedora)/ryanabx-cosmic-epoch-fedora-$(rpm -E %fedora).repo \
     ; fi && \
-    mkdir -p /var/roothome && \
-    dnf5 -y install dnf5-plugins && \
-    for copr in \
-        ublue-os/staging \
-        ublue-os/packages; \
-    do \
-        dnf5 -y copr enable $copr; \
-    done
-    dnf5 -y install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release{,-extras} && \
-    dnf5 -y install \
-    https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
-    https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm && \
+    dnf5 -y config-manager setopt "terra".enabled=true
+
+# Clean
+RUN \
+    set -eoux pipefail && \
+    shopt -s extglob && \
+    dnf5 clean all && \
+    rm -rf /tmp/* || true && \
+    rm -rf /var/!(cache) && \
+    rm -rf /var/cache/!(rpm-ostree) && \
     ostree container commit
 
 # Remove stock Firefox
@@ -34,7 +42,16 @@ RUN \
     firefox \
     firefox-langpacks \
     || true && \
-    && rm -rf /usr/share/mozilla && \
+    && rm -rf /usr/share/mozilla
+
+# Clean
+RUN \
+    set -eoux pipefail && \
+    shopt -s extglob && \
+    dnf5 clean all && \
+    rm -rf /tmp/* || true && \
+    rm -rf /var/!(cache) && \
+    rm -rf /var/cache/!(rpm-ostree) && \
     ostree container commit
 
 # Install additional packages
@@ -45,7 +62,15 @@ RUN \
     git \
     vlc \
     zsh \
-    || true && \
+
+# Clean
+RUN \
+    set -eoux pipefail && \
+    shopt -s extglob && \
+    dnf5 clean all && \
+    rm -rf /tmp/* || true && \
+    rm -rf /var/!(cache) && \
+    rm -rf /var/cache/!(rpm-ostree) && \
     ostree container commit
 
 # Install and configure Cosmic DE
@@ -61,31 +86,76 @@ RUN \
     # Remove cosmic-store and replace it with gnome-software
     # as the former is currently broken in immutable systems
     rpm-ostree remove \
-    cosmic-store || true && \
-    ostree container commit
+    cosmic-store
 
+# Clean
+RUN \
+    set -eoux pipefail && \
+    shopt -s extglob && \
+    dnf5 clean all && \
+    rm -rf /tmp/* || true && \
+    rm -rf /var/!(cache) && \
+    rm -rf /var/cache/!(rpm-ostree) && \
+    ostree container commit
 
 # Ensure Homebrew is installed
 RUN \
     dnf5 install -y ublue-brew && \
-    curl -Lo /usr/share/bash-prexec https://raw.githubusercontent.com/ublue-os/bash-preexec/master/bash-preexec.sh && \
+    curl -Lo /usr/share/bash-prexec https://raw.githubusercontent.com/ublue-os/bash-preexec/master/bash-preexec.sh
+
+# Clean
+RUN \
+    set -eoux pipefail && \
+    shopt -s extglob && \
+    dnf5 clean all && \
+    rm -rf /tmp/* || true && \
+    rm -rf /var/!(cache) && \
+    rm -rf /var/cache/!(rpm-ostree) && \
     ostree container commit
 
+# Ensure automount is installed
 RUN \
     dnf5 install -y --enable-repo=copr:copr.fedorainfracloud.org:ublue-os:packages \
-    ublue-os-media-automount-udev && \
+    ublue-os-media-automount-udev
+
+# Clean
+RUN \
+    set -eoux pipefail && \
+    shopt -s extglob && \
+    dnf5 clean all && \
+    rm -rf /tmp/* || true && \
+    rm -rf /var/!(cache) && \
+    rm -rf /var/cache/!(rpm-ostree) && \
     ostree container commit
 
 # Install Flatpaks
 RUN \
     FLATPAK_LIST="$(curl https://raw.githubusercontent.com/givensuman/dune-os/refs/heads/main/flatpaks | tr '\n' ' ')" && \
-    flatpak --system -y install --or-update flathub ${FLATPAK_LIST} && \
+    flatpak --system -y install --or-update flathub ${FLATPAK_LIST}
+
+# Clean
+RUN \
+    set -eoux pipefail && \
+    shopt -s extglob && \
+    dnf5 clean all && \
+    rm -rf /tmp/* || true && \
+    rm -rf /var/!(cache) && \
+    rm -rf /var/cache/!(rpm-ostree) && \
     ostree container commit
 
 # Install fonts
 RUN \
     tar -xzf /fonts/*.tar.gz ~/.local/share/fonts || true && \
-    rm -rf /fonts && \
+    rm -rf /fonts &&
+
+# Clean
+RUN \
+    set -eoux pipefail && \
+    shopt -s extglob && \
+    dnf5 clean all && \
+    rm -rf /tmp/* || true && \
+    rm -rf /var/!(cache) && \
+    rm -rf /var/cache/!(rpm-ostree) && \
     ostree container commit
 
 # Finalize
@@ -124,5 +194,14 @@ RUN \
     ln -s /usr/bin/true /usr/bin/pulseaudio && \
     mkdir -p /etc/flatpak/remotes.d && \
     curl -Lo /etc/flatpak/remotes.d/flathub.flatpakrepo https://dl.flathub.org/repo/flathub.flatpakrepo && \
-    mkdir -p /var/tmp && chmod 1777 /var/tmp && \
+    mkdir -p /var/tmp && chmod 1777 /var/tmp
+
+# Clean
+RUN \
+    set -eoux pipefail && \
+    shopt -s extglob && \
+    dnf5 clean all && \
+    rm -rf /tmp/* || true && \
+    rm -rf /var/!(cache) && \
+    rm -rf /var/cache/!(rpm-ostree) && \
     ostree container commit
