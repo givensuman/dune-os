@@ -2,6 +2,7 @@
 
 set -ouex pipefail
 
+mkdir -p /etc/yum.repos.d
 curl -fsSL https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo | pkexec tee /etc/yum.repos.d/terra.repo
 dnf5 -y install terra-release
 
