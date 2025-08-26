@@ -2,6 +2,6 @@
 
 set -ouex pipefail
 
-tar -xzf /fonts/*.tar.gz ~/.local/share/fonts
+tar -xzf /fonts/*.tar.gz -C ~/.local/share/fonts
 
 rm -rf /fonts
