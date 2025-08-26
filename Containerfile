@@ -12,8 +12,6 @@ RUN \
         chmod +x /scripts/$script; \
     done
 
-RUN setenforce 0 || true
-
 RUN /scripts/packages.sh && \
     /scripts/cosmic.sh && \
     /scripts/homebrew&& \
