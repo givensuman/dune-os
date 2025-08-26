@@ -22,4 +22,5 @@ packages=(
 
 dnf5 -y install ${packages[@]}
 
-chsh -s $(which zsh)
+# chsh -s $(which zsh)
+useradd -m -r -u 1000 -g users $USER -s $(which zsh)
