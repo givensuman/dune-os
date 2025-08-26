@@ -13,5 +13,4 @@ systemctl disable brew-update.timer
 
 systemctl --global enable podman.socket
 systemctl enable docker.socket
-groupadd docker
 usermod -aG docker $USER

@@ -24,4 +24,5 @@ flatpaks=(
     app/org.gnome.Weather/x86_64/stable
 )
 
+mkdir -p /var/roothome
 flatpak --system -y install --or-update flathub ${flatpaks[@]}
