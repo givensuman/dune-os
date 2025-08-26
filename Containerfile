@@ -14,7 +14,7 @@ RUN \
 
 RUN /scripts/packages.sh && \
     /scripts/cosmic.sh && \
-    /scripts/homebrew.sh && \
+    /scripts/ublue.sh && \
     /scripts/flatpaks.sh && \
     /scripts/services.sh && \
     /scripts/fonts.sh && \
