@@ -7,8 +7,7 @@ FROM ghcr.io/ublue-os/base-main AS dune-os
 COPY system /
 
 # Setup COPR repos
-RUN --mount=type=cache,dst=/var/cache/rpm-ostree \
-    --mount=type=bind,from=ctx,source=/,target=/ctx \
+RUN \
     if [[ "${FEDORA_MAJOR_VERSION}" == "rawhide" ]]; then \
     curl -Lo /etc/yum.repos.d/_copr_ryanabx-cosmic.repo \
     https://copr.fedorainfracloud.org/coprs/ryanabx/cosmic-epoch/repo/fedora-rawhide/ryanabx-cosmic-epoch-fedora-rawhide.repo \
@@ -30,8 +29,7 @@ RUN --mount=type=cache,dst=/var/cache/rpm-ostree \
     ostree container commit
 
 # Remove stock Firefox
-RUN --mount=type=cache,dst=/var/cache/rpm-ostree \
-    --mount=type=bind,from=ctx,source=/,target=/ctx \
+RUN \
     rpm-ostree override remove \
     firefox \
     firefox-langpacks \
@@ -40,8 +38,7 @@ RUN --mount=type=cache,dst=/var/cache/rpm-ostree \
     ostree container commit
 
 # Install additional packages
-RUN --mount=type=cache,dst=/var/cache/rpm-ostree \
-    --mount=type=bind,from=ctx,source=/,target=/ctx \
+RUN \
     rpm-ostree install \
     ffmpeg \
     ghostty \
@@ -52,8 +49,7 @@ RUN --mount=type=cache,dst=/var/cache/rpm-ostree \
     ostree container commit
 
 # Install and configure Cosmic DE
-RUN --mount=type=cache,dst=/var/cache/rpm-ostree \
-    --mount=type=bind,from=ctx,source=/,target=/ctx \
+RUN \
     rpm-ostree install \
     cosmic-desktop && \
     # Install GNOME applications
@@ -70,36 +66,30 @@ RUN --mount=type=cache,dst=/var/cache/rpm-ostree \
 
 
 # Ensure Homebrew is installed
-RUN --mount=type=cache,dst=/var/cache/rpm-ostree \
-    --mount=type=bind,from=ctx,source=/,target=/ctx \
+RUN \
     dnf5 install -y ublue-brew && \
     curl -Lo /usr/share/bash-prexec https://raw.githubusercontent.com/ublue-os/bash-preexec/master/bash-preexec.sh && \
     ostree container commit
 
-RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
-    --mount=type=tmpfs,dst=/tmp \
+RUN \
     dnf5 install -y --enable-repo=copr:copr.fedorainfracloud.org:ublue-os:packages \
     ublue-os-media-automount-udev && \
     ostree container commit
 
 # Install Flatpaks
-RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
-    --mount=type=tmpfs,dst=/tmp \
+RUN \
     FLATPAK_LIST="$(curl https://raw.githubusercontent.com/givensuman/dune-os/refs/heads/main/flatpaks | tr '\n' ' ')" && \
     flatpak --system -y install --or-update flathub ${FLATPAK_LIST} && \
     ostree container commit
 
 # Install fonts
-RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
-    --mount=type=tmpfs,dst=/tmp \
+RUN \
     tar -xzf /fonts/*.tar.gz ~/.local/share/fonts || true && \
     rm -rf /fonts && \
     ostree container commit
 
 # Finalize
-COPY override /
-RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
-    mkdir -p /var/tmp && chmod 1777 /var/tmp && \
+RUN \
     # Service management
     systemctl disable gdm || true && \
     systemctl disable sddm || true && \
