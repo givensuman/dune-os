@@ -3,14 +3,17 @@
 set -ouex pipefail
 
 mkdir -p /etc/yum.repos.d
+
 curl -fsSL https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo | tee /etc/yum.repos.d/terra.repo
 dnf5 -y install terra-release
-# curl -fsSL https://download.docker.com/linux/fedora/docker-ce.repo | tee /etc/yum.repos.d/docker-ce.repo
+
+curl -fsSL https://download.docker.com/linux/fedora/docker-ce.repo | tee /etc/yum.repos.d/docker-ce.repo
 
 packages=(
   ghostty
   git
   vlc
+  fish
   # docker-ce
   # docker-ce-cli
   # containerd.io
@@ -20,5 +23,6 @@ packages=(
 
 dnf5 -y install ${packages[@]}
 
-# chsh -s $(which zsh)
-# usermod --shell $(which zsh) root
+usermod --shell $(which fish) root
+
+systemctl enable docker
