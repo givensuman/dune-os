@@ -5,7 +5,7 @@ COPY system /
 COPY scripts /scripts
 
 RUN \
-    for script in /scripts/*; do \
+    for script in $(ls /scripts); do \
         chmod +x "/scripts/$script"; \
     done
 
