@@ -1,4 +1,4 @@
-FROM ghcr.io/ublue-os/base-main:stable AS dune-os
+FROM ghcr.io/ublue-os/base-main AS dune-os
 
 # Copying system files into main image
 COPY system /
