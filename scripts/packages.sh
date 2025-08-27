@@ -8,19 +8,17 @@ dnf5 -y install terra-release
 # curl -fsSL https://download.docker.com/linux/fedora/docker-ce.repo | tee /etc/yum.repos.d/docker-ce.repo
 
 packages=(
-    ffmpeg
-    ghostty
-    git
-    vlc
-    zsh
-    # docker-ce
-    # docker-ce-cli
-    # containerd.io
-    # docker-buildx-plugin
-    # docker-compose-plugin
+  ghostty
+  git
+  vlc
+  # docker-ce
+  # docker-ce-cli
+  # containerd.io
+  # docker-buildx-plugin
+  # docker-compose-plugin
 )
 
 dnf5 -y install ${packages[@]}
 
 # chsh -s $(which zsh)
-usermod --shell $(which zsh) root
+# usermod --shell $(which zsh) root
