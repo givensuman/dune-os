@@ -16,6 +16,5 @@ RUN /scripts/packages.sh && \
     /scripts/cosmic.sh && \
     /scripts/ublue.sh && \
     /scripts/flatpaks.sh && \
-    /scripts/services.sh && \
     /scripts/cleanup.sh && \
     ostree container commit
