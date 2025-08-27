@@ -13,7 +13,6 @@ packages=(
   ghostty
   git
   vlc
-  fish
   docker-ce
   docker-ce-cli
   containerd.io
@@ -21,8 +20,6 @@ packages=(
   docker-compose-plugin
 )
 
-dnf5 -y install ${packages[@]}
-
-usermod --shell $(which fish) root
+dnf5 -y install "${packages[@]}"
 
 systemctl enable docker
