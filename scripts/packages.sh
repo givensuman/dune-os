@@ -14,11 +14,11 @@ packages=(
   git
   vlc
   fish
-  # docker-ce
-  # docker-ce-cli
-  # containerd.io
-  # docker-buildx-plugin
-  # docker-compose-plugin
+  docker-ce
+  docker-ce-cli
+  containerd.io
+  docker-buildx-plugin
+  docker-compose-plugin
 )
 
 dnf5 -y install ${packages[@]}
