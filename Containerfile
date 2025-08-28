@@ -7,10 +7,10 @@ COPY scripts /scripts
 RUN chmod +x /scripts/*
 
 RUN  \
-  /scripts/packages.sh && \
-  /scripts/cosmic.sh && \
-  /scripts/ublue.sh && \
-  /scripts/flatpaks.sh && \
+  # /scripts/packages.sh && \
+  # /scripts/cosmic.sh && \
+  # /scripts/ublue.sh && \
+  # /scripts/flatpaks.sh && \
   ostree container commit
 
 COPY override /

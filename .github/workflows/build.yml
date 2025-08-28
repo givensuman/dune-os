@@ -194,8 +194,7 @@ jobs:
       - name: Sign container image
         shell: bash
         run: |
-          echo env://COSIGN_PRIVATE_KEY
-          cat env://COSIGN_PRIVATE_KEY
+          echo $COSIGN_PRIVATE_KEY
           cosign sign -y --key env://COSIGN_PRIVATE_KEY ${{ steps.registry_case.outputs.lowercase }}/${{ steps.build_image.outputs.image }}@${TAGS}
         env:
           TAGS: ${{ steps.push.outputs.digest }}
