@@ -21,11 +21,7 @@ packages=(
   docker-ce-cli
   docker-compose-plugin
   containerd.io
-  podman-bootc
   podman-compose
-  podman-machine
-  podman-tui
-  podmansh
 )
 
 dnf5 -y install "${packages[@]}"
