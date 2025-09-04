@@ -7,7 +7,7 @@ mkdir -p /etc/yum.repos.d
 curl -fsSL https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo | tee /etc/yum.repos.d/terra.repo
 dnf5 -y install terra-release
 
-sudo dnf5 config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+dnf5 config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
 
 packages=(
   ghostty
