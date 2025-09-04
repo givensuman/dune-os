@@ -43,11 +43,14 @@ You can layer whatever packages you like on top of this build. I recommend insta
 rpm-ostree install --apply-live fish
 ```
 
-This is also a good time to set up Docker permissions, if you plan to use it:
+This is also a good time to set up Docker, if you plan to use it:
 
 ```
 sudo groupadd docker
 sudo usermod -aG docker $USER
+
+systemctl enable containerd.service
+systemctl enable docker.service
 ```
 
 ## Secure Boot
