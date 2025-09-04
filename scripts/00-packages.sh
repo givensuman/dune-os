@@ -8,7 +8,7 @@ curl -fsSL https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo | tee
 dnf5 -y install terra-release
 
 dnf5 -y install dnf-plugins-core
-dnf5 config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+dnf5 config-manager addrepo --from-repofile=https://download.docker.com/linux/fedora/docker-ce.repo
 
 packages=(
   ghostty
