@@ -12,3 +12,6 @@ dnf5 -y install \
 
 systemctl disable gdm.service
 systemctl enable cosmic-greeter.service
+
+fc-cache -f /usr/share/fonts/Hack
+fc-cache -f /usr/share/fonts/Inter

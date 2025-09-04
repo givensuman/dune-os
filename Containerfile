@@ -7,19 +7,13 @@ LABEL org.opencontainers.image.licenses="Apache-2.0"
 
 # Copying system files into main image
 COPY system /
+COPY override /
 COPY scripts /scripts
 
 RUN chmod +x /scripts/*
 
 RUN  \
-  /scripts/packages.sh && \
-  /scripts/cosmic.sh && \
-  /scripts/ublue.sh && \
-  /scripts/flatpaks.sh && \
-  ostree container commit
-
-COPY override /
-
-RUN \
-  /scripts/cleanup.sh && \
+  for script in /scripts/*.sh; do \
+  bash "$script"; \
+  done && \
   ostree container commit
