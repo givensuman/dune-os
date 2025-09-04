@@ -1,5 +1,12 @@
 <img src="./assets/dune_logo.png" />
 
+<div align="center">
+  <img src="https://img.shields.io/github/actions/workflow/status/givensuman/dune-os/build.yml?labelColor=purple" />
+  <img src="https://img.shields.io/github/actions/workflow/status/givensuman/dune-os/build_iso.yml?label=build%20iso&labelColor=blue" />
+  <img src="https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/dune-os" />
+
+</div>
+
 ## About
 
 This is a custom Linux operating system design around Fedora's [Atomic Desktops](https://fedoraproject.org/atomic-desktops/), as a community-driven adaptation of the [Universal Blue](https://universal-blue.org/) project. These systems are immutable by nature, which means users are actually gated from directly modifying the system, providing an incredibly secure form of interacting with the Linux platform.
@@ -15,12 +22,8 @@ This is a custom Linux operating system design around Fedora's [Atomic Desktops]
 - **Flatpak Preinstalled**  
   Flatpak is preconfigured for seamless access to a vast library of applications right from the get-go.
 
-- **Brew Package Manager**  
-  Comes with [Brew](https://brew.sh/) for easy management of additional software packages.
-
-- **Container Support**  
-  [Docker](https://www.docker.com/), [Podman](https://podman.io/), and [Distrobox](https://distrobox.it/) are all set up for virtually any system environment you can think of.
-  
+- **Homebrew Package Manager**  
+  Comes with [Homebrew](https://brew.sh/) for easy management of additional software packages.
 
 ## Installation
 
