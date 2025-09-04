@@ -3,7 +3,6 @@
 set -ouex pipefail
 
 mkdir -p /etc/yum.repos.d
-sudo dnf5 -y install dnf-plugins-core
 
 curl -fsSL https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo | tee /etc/yum.repos.d/terra.repo
 dnf5 -y install terra-release
