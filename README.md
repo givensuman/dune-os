@@ -41,6 +41,7 @@ You can layer whatever packages you like on top of this build. I recommend insta
 
 ```bash
 rpm-ostree install --apply-live fish
+sudo usermod -s $(which fish) $USER
 ```
 
 This is also a good time to set up Docker, if you plan to use it:
