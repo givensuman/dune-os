@@ -35,6 +35,21 @@ Alternatively, and preferably for most users, you can rebase from any Fedora Ato
 rpm-ostree rebase ostree-unverified-registry:ghcr.io/givensuman/dune-os:stable
 ```
 
+## Post-Install
+
+You can layer whatever packages you like on top of this build. I recommend installing your favorite shell:
+
+```bash
+rpm-ostree install --apply-live fish
+```
+
+This is also a good time to set up Docker permissions, if you plan to use it:
+
+```
+sudo groupadd docker
+sudo usermod -aG docker $USER
+```
+
 ## Secure Boot
 
 Secure Boot is enabled by default on Universal Blue builds, adding an extra layer of security. During the initial installation, you will be prompted to enroll the secure boot key in the BIOS. To do so, enter the password `universalblue` when asked.
