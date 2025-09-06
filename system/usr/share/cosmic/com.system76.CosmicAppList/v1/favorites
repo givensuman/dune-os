@@ -1,7 +1,7 @@
 [
     "com.system76.CosmicFiles",
-    "org.gnome.Software",
-    "firefox",
+    "org.system76.CosmicStore",
+    "org.mozilla.firefox",
     "com.mitchellh.ghostty",
-    "Podman Desktop",
+    "io.podman_desktop.PodmanDesktop ",
 ]

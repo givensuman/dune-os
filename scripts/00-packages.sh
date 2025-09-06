@@ -28,4 +28,6 @@ dnf5 -y install "${packages[@]}"
 
 if rpm -q docker-ce >/dev/null; then
   systemctl enable docker.socket
+  systemctl enable containerd.service
+  systemctl enable docker.service
 fi

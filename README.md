@@ -37,21 +37,30 @@ rpm-ostree rebase ostree-unverified-registry:ghcr.io/givensuman/dune-os:stable
 
 ## Post-Install
 
-You can layer whatever packages you like on top of this build. I recommend installing your favorite shell:
+You can layer whatever core packages you like on top of this build. I recommend installing your favorite shell:
 
 ```bash
 rpm-ostree install --apply-live fish
 sudo usermod -s $(which fish) $USER
 ```
 
-This is also a good time to set up Docker, if you plan to use it:
+This is also a good time to set up rootless Docker, if you plan to use it:
 
-```
+```bash
 sudo groupadd docker
 sudo usermod -aG docker $USER
+```
 
-systemctl enable containerd.service
-systemctl enable docker.service
+And then get the rest of your software through the included app store or with `brew`:
+
+```bash
+brew install \
+nvim \
+lazygit \
+bat \
+eza \
+zoxide \
+gh \
 ```
 
 ## Secure Boot
