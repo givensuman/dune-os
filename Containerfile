@@ -7,7 +7,6 @@ LABEL org.opencontainers.image.licenses="Apache-2.0"
 
 # Copying system files into main image
 COPY system /
-COPY override /
 COPY scripts /scripts
 
 RUN chmod +x /scripts/*

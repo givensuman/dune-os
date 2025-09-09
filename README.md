@@ -19,11 +19,14 @@ This is a custom Linux operating system designed around Fedora's [Atomic Desktop
 - **COSMIC Desktop Environment**  
   The [COSMIC Desktop Environment](https://system76.com/cosmic/) by System76 is a new and exciting addition to the Linux desktop ecosystem.
 
-- **Flatpak Preinstalled**  
+- **Flatpak App Store**  
   Flatpak is preconfigured for seamless access to a vast library of applications right from the get-go.
 
 - **Homebrew Package Manager**  
   Comes with [Homebrew](https://brew.sh/) for easy management of additional software packages.
+
+- Containerization Galore  
+  [Docker](https://www.docker.com/), [Podman](https://www.podman.io/), and [Distrobox](https://distrobox.it/) are set-up and ready for use, catering to all your containerization needs.
 
 ## Installation
 
