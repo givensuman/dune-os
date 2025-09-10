@@ -20,7 +20,7 @@ packages=(
   p7zip-plugins
   wl-clipboard
   libwayland-client
-  wayland-protocols
+  wayland-protocols-devel
 
   # Useful for atomic systems
   docker-buildx-plugin
