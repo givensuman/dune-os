@@ -2,8 +2,6 @@
 
 set -ouex pipefail
 
-systemctl disable gdm.service
-
 dnf5 -y swap @gnome-desktop @cosmic-desktop
 
 systemctl enable cosmic-greeter.service
