@@ -20,17 +20,8 @@ packages=(
   p7zip-plugins
   wayland-protocols-devel
 
-  # Sysadmin packages
-  subscription-manager
-  cockpit-navigator
-  cockpit-bridge
-  cockpit-system
-  cockpit-selinux
-  cockpit-networkmanager
-  cockpit-storaged
-  cockpit-podman
-  cockpit-machines
-  cockpit-kdump
+  # Virtualization packages
+  libvirt
   libguestfs-tools
   virt-install
   virt-manager

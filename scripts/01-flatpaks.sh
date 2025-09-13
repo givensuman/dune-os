@@ -5,7 +5,6 @@ set -ouex pipefail
 # Remove Fedora remote and prefer Flathub
 # Fedora remote seems to break `cosmic-store`
 systemctl disable flatpak-add-fedora-repos.service
-flatpak remote-delete fedora
 flatpak remote-add --system --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 # Prefer Flatpak version of Firefox

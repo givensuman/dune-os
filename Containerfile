@@ -14,5 +14,9 @@ RUN chmod +x /scripts/*
 RUN  \
   for script in /scripts/*.sh; do \
   bash "$script"; \
+  if [ $? -ne 0 ]; then \
+  echo "Error executing $script" >&2; \
+  exit 1; \
+  fi; \
   done && \
   ostree container commit
