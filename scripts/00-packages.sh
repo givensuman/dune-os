@@ -30,15 +30,12 @@ packages=(
 )
 
 dnf5 -y install "${packages[@]}"
-dnf5 -y install @virt - host @virt - guest - tools
 
 if rpm -q docker-ce >/dev/null; then
   systemctl enable docker.socket
   systemctl enable containerd.service
   systemctl enable docker.service
 fi
-
-systemctl enable libvirtd.service
 
 # Disable additional repos
 sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/terra.repo
