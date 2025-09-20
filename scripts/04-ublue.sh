@@ -10,7 +10,7 @@ dnf5 -y install ublue-os-media-automount-udev
 
 systemctl --global enable podman.socket
 
-# Stellarite fixes
+# Stellarite patches for `brew`
 systemctl enable brew-dir-fix.service
 systemctl enable brew-setup.service
 systemctl disable brew-upgrade.timer
