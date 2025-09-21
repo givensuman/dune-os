@@ -5,7 +5,6 @@ set -ouex pipefail
 # Install virtualization packages
 dnf5 -y install \
   libvirt \
-  libvirt-python \
   libvirt-client
 dnf5 -y group install \
   virtualization-client \

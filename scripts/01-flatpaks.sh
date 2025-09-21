@@ -46,6 +46,8 @@ flatpaks=(
   app/org.mozilla.firefox
 )
 
+mkdir -p /root/.local
+
 for PKG in "${flatpaks[@]}"; do
   flatpak install --user flathub "$PKG"
 done
