@@ -3,7 +3,14 @@
 set -ouex pipefail
 
 # Install virtualization packages
-dnf5 -y install @virt - host @virt - guest - tools
+dnf5 -y install \
+  libvirt \
+  libvirt-python \
+  libvirt-client
+dnf5 -y group install \
+  virtualization-client \
+  virtualization-platform \
+  virtualization-tools
 flatpak install flathub org.virt_manager.virt-manager
 
 systemctl enable libvirtd.service

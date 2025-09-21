@@ -5,7 +5,6 @@ set -ouex pipefail
 # Remove Fedora remote and prefer Flathub
 # Fedora remote seems to break `cosmic-store`
 systemctl disable flatpak-add-fedora-repos.service
-flatpak update
 flatpak remote-delete flathub --force
 flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 flatpak update --appstream
@@ -45,10 +44,8 @@ flatpaks=(
 
   # Opinionated additions
   app/org.mozilla.firefox
-  app/io.github.nozwock.Packet
 )
 
-mkdir -p /var/roothome
 for PKG in "${flatpaks[@]}"; do
   flatpak install --user flathub "$PKG"
 done
