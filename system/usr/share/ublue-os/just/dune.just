@@ -48,8 +48,8 @@ setup-flatpaks:
     done
 
 setup-rootless-docker:
-  groupadd docker
-  usermod -aG docker $USER
+    groupadd docker
+    usermod -aG docker $USER
 
 setup-virtualization:
     #!/bin/bash
@@ -116,4 +116,3 @@ setup-givens-cool-stuff:
 
     bat cache --build
     mise install
-
