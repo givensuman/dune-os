@@ -37,3 +37,6 @@ sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/fedora-cisco-openh264.repo
 for i in /etc/yum.repos.d/rpmfusion-*; do
   sed -i 's@enabled=1@enabled=0@g' "$i"
 done
+
+# Import Justfile recipes
+echo "import \"/usr/share/ublue-os/just/80-dune.just\"" >>/usr/share/ublue-os/justfile
