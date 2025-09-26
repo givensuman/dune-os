@@ -59,10 +59,7 @@ setup-virtualization:
     rpm-ostree -y install \
       libvirt \
       libvirt-client
-    rpm-ostree -y group install \
-      virtualization-client \
-      virtualization-platform \
-      virtualization-tools
+    rpm-ostree -y install @virtualization
     flatpak install flathub org.virt_manager.virt-manager
 
     systemctl enable libvirtd.service
