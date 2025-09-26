@@ -6,7 +6,7 @@ setup-flatpaks:
     flatpak update -y
 
     # Prefer Flatpak version of Firefox
-    dnf5 -y remove firefox firefox-langpacks
+    rpm-ostree -y remove firefox firefox-langpacks
     rm -rf /usr/share/mozilla
 
     flatpaks=(
@@ -56,10 +56,10 @@ setup-virtualization:
     set -ouex pipefail
 
     # Install virtualization packages
-    dnf5 -y install \
+    rpm-ostree -y install \
       libvirt \
       libvirt-client
-    dnf5 -y group install \
+    rpm-ostree -y group install \
       virtualization-client \
       virtualization-platform \
       virtualization-tools
@@ -68,9 +68,10 @@ setup-virtualization:
     systemctl enable libvirtd.service
 
     # Compile and install SELinux policy module for virt-manager
-    checkmodule -M -m -o /tmp/virtmanager.mod /tmp/virtmanager.te
-    semodule_package -o /tmp/virtmanager.pp -m /tmp/virtmanager.mod
-    semodule -i /tmp/virtmanager.pp
+    local selinux_dir="/usr/share/ublue-os/selinux"
+    checkmodule -M -m -o "$selinux_dir/virtmanager.mod" "$selinux_dir/virtmanager.te"
+    semodule_package -o "$selinux_dir/virtmanager.pp" -m "$selinux_dir/virtmanager.mod"
+    semodule -i "$selinux_dir/virtmanager.pp"
 
 setup-givens-cool-stuff:
     #!/bin/bash
@@ -111,7 +112,7 @@ setup-givens-cool-stuff:
       flatpak install --user flathub "$PKG"
     done
 
-    rpm-ostree install fish
+    rpm-ostree -y install fish
     usermod -s $(which fish) $USER
 
     bat cache --build
