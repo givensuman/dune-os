@@ -2,12 +2,19 @@ setup-flatpaks:
     #!/bin/bash
     set -ouex pipefail
 
-    flatpak update --appstream
-    flatpak update -y
+    echo "Setting up Flatpaks..."
+
+    @flatpak update --appstream
+    @flatpak update -y
 
     # Prefer Flatpak version of Firefox
-    rpm-ostree -y remove firefox firefox-langpacks
-    rm -rf /usr/share/mozilla
+    if rpm -q firefox; then
+        @rpm-ostree -y remove firefox
+    fi
+
+    if rpm -q firefox-langpacks; then
+        @rpm-ostree -y remove firefox-langpacks
+    fi
 
     flatpaks=(
       # Useful for atomic systems
@@ -37,38 +44,69 @@ setup-flatpaks:
       app/org.gnome.clocks
       app/org.gnome.font-viewer
 
-      # Opinionated additions
+      # Prefer Flatpak version of Firefox
       app/org.mozilla.firefox
     )
 
-    mkdir -p /root/.local
+    @mkdir -p /root/.local
 
     for PKG in "${flatpaks[@]}"; do
-      flatpak install --user flathub "$PKG"
+      @flatpak install --user flathub "$PKG"
     done
 
+
 setup-rootless-docker:
-    groupadd docker
-    usermod -aG docker $USER
+    #!/bin/bash
+    set -ouex pipefail
+
+    if [ "$EUID" -ne 0 ]; then
+      @echo "Please run as root"
+      @exit 1
+    fi
+
+    @echo "Setting up rootless Docker..."
+
+    if [[ ! getent group docker ]]; then
+      @sudo groupadd docker
+    fi
+    @sudo usermod -aG docker "$USER"
 
 setup-virtualization:
     #!/bin/bash
     set -ouex pipefail
 
+    if [ "$EUID" -ne 0 ]; then
+      @echo "Please run as root"
+      @exit 1
+    fi
+
+
     # Install virtualization packages
     rpm-ostree -y install \
       libvirt \
-      libvirt-client
-    rpm-ostree -y install @virtualization
+      libvirt-client \
+      # @virtualization group
+      virt-install \
+      libvirt-daemon-config-network \
+      libvirt-daemon-kvm \
+      qemu-kvm \
+      virt-manager \
+      virt-viewer \
+      guestfs-tools \
+      python3-libguestfs \
+      virt-top
+
     flatpak install flathub org.virt_manager.virt-manager
 
     systemctl enable libvirtd.service
 
     # Compile and install SELinux policy module for virt-manager
-    local selinux_dir="/usr/share/ublue-os/selinux"
-    checkmodule -M -m -o "$selinux_dir/virtmanager.mod" "$selinux_dir/virtmanager.te"
-    semodule_package -o "$selinux_dir/virtmanager.pp" -m "$selinux_dir/virtmanager.mod"
-    semodule -i "$selinux_dir/virtmanager.pp"
+    cp /usr/share/ublue-os/selinux/virtmanager.te /tmp
+    checkmodule -M -m -o /tmp/virtmanager.mod /tmp/virtmanager.te
+    semodule_package -o /tmp/virtmanager.pp -m /tmp/virtmanager.mod
+    sudo semodule -i /tmp/virtmanager.pp
+
+    rm -f /tmp/virtmanager.*
 
 setup-givens-cool-stuff:
     #!/bin/bash
