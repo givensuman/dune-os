@@ -1,4 +1,4 @@
-FROM ghcr.io/ublue-os/base-main:stable AS dune-os
+FROM ghcr.io/ublue-os/base-main AS dune-os
 
 LABEL org.opencontainers.image.source=https://github.com/givensuman/dune-os
 LABEL org.opencontainers.image.description="custom atomic linux build"
