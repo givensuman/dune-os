@@ -4,16 +4,16 @@ setup-flatpaks:
 
     echo "Setting up Flatpaks..."
 
-    @flatpak update --appstream
-    @flatpak update -y
+    flatpak update --appstream
+    flatpak update -y
 
     # Prefer Flatpak version of Firefox
     if rpm -q firefox; then
-        @rpm-ostree -y remove firefox
+        rpm-ostree -y remove firefox
     fi
 
     if rpm -q firefox-langpacks; then
-        @rpm-ostree -y remove firefox-langpacks
+        rpm-ostree -y remove firefox-langpacks
     fi
 
     flatpaks=(
@@ -48,10 +48,10 @@ setup-flatpaks:
       app/org.mozilla.firefox
     )
 
-    @mkdir -p /root/.local
+    mkdir -p /root/.local
 
     for PKG in "${flatpaks[@]}"; do
-      @flatpak install --user flathub "$PKG"
+      flatpak install --user flathub "$PKG"
     done
 
 setup-rootless-docker:
@@ -59,24 +59,24 @@ setup-rootless-docker:
     set -ouex pipefail
 
     if [ "$EUID" -ne 0 ]; then
-      @echo "Please run as root"
-      @exit 1
+      echo "Please run as root"
+      exit 1
     fi
 
     @echo "Setting up rootless Docker..."
 
     if [[ ! getent group docker ]]; then
-      @sudo groupadd docker
+      sudo groupadd docker
     fi
-    @sudo usermod -aG docker "$USER"
+    sudo usermod -aG docker "$USER"
 
 setup-virtualization:
     #!/bin/bash
     set -ouex pipefail
 
     if [ "$EUID" -ne 0 ]; then
-      @echo "Please run as root"
-      @exit 1
+      echo "Please run as root"
+      exit 1
     fi
 
 
