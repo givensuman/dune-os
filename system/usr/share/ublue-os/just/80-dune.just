@@ -54,7 +54,6 @@ setup-flatpaks:
       @flatpak install --user flathub "$PKG"
     done
 
-
 setup-rootless-docker:
     #!/bin/bash
     set -ouex pipefail
