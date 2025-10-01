@@ -8,13 +8,8 @@ setup-flatpaks:
     flatpak update -y
 
     # Prefer Flatpak version of Firefox
-    if rpm -q firefox; then
-        rpm-ostree -y remove firefox
-    fi
-
-    if rpm -q firefox-langpacks; then
-        rpm-ostree -y remove firefox-langpacks
-    fi
+    rpm-ostree uninstall --idempotent firefox
+    rpm-ostree uninstall --idempotent firefox-langpacks
 
     flatpaks=(
       # Useful for atomic systems
