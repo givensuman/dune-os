@@ -7,6 +7,4 @@ set -ouex pipefail
 systemctl disable flatpak-add-fedora-repos.service
 flatpak remote-delete flathub --force
 flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-
-dnf5 -y remove firefox firefox-langpacks
-rm -rf /usr/share/mozilla
+flatpak remote-add --user --if-not-exists cosmic https://apt.pop-os.org/cosmic/cosmic.flatpakrepo

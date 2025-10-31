@@ -10,6 +10,7 @@ setup-flatpaks:
     # Prefer Flatpak version of Firefox
     rpm-ostree uninstall --idempotent firefox
     rpm-ostree uninstall --idempotent firefox-langpacks
+    rm -rf /usr/share/mozilla
 
     flatpaks=(
       # Useful for atomic systems
@@ -43,10 +44,8 @@ setup-flatpaks:
       app/org.mozilla.firefox
     )
 
-    mkdir -p /root/.local
-
     for PKG in "${flatpaks[@]}"; do
-      flatpak install --user flathub "$PKG"
+      flatpak install -y flathub "$PKG"
     done
 
 setup-rootless-docker:
