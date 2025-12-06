@@ -55,8 +55,8 @@ jobs:
           secure_boot_key_url: "https://github.com/ublue-os/akmods/raw/main/certs/public_key.der"
           enrollment_password: "universalblue"
           iso_name: ${{ env.image_name }}-${{ steps.generate-tag.outputs.tag }}.iso
-          enable_cache_dnf: "false"
-          enable_cache_skopeo: "false"
+           enable_cache_dnf: "true"
+           enable_cache_skopeo: "true"
           flatpak_remote_refs_dir: ${{ steps.generate-flatpak-dir-shortname.outputs.flatpak-dir-shortname }}
           enable_flatpak_dependencies: "false"
           extra_boot_params: ${{ steps.generate-extra-params.outputs.extra-boot-params }}

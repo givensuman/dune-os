@@ -15,9 +15,8 @@ setup-flatpaks:
     flatpaks=(
       # Useful for atomic systems
       app/com.github.tchx84.Flatseal
-      app/io.github.flattool.Warehouse
-      app/io.github.flattool.Ignition
-      app/io.github.flattool.Warehouse
+       app/io.github.flattool.Warehouse
+       app/io.github.flattool.Ignition
       app/io.gitlab.adhami3310.Impression
       app/io.missioncenter.MissionCenter
       app/io.podman_desktop.PodmanDesktop
@@ -45,7 +44,7 @@ setup-flatpaks:
     )
 
     for PKG in "${flatpaks[@]}"; do
-      flatpak install -y flathub "$PKG"
+      flatpak install -y flathub "$PKG" || { echo "Failed to install $PKG"; exit 1; }
     done
 
 setup-rootless-docker:
@@ -78,7 +77,6 @@ setup-virtualization:
     rpm-ostree -y install \
       libvirt \
       libvirt-client \
-      # @virtualization group
       virt-install \
       libvirt-daemon-config-network \
       libvirt-daemon-kvm \
@@ -87,7 +85,7 @@ setup-virtualization:
       virt-viewer \
       guestfs-tools \
       python3-libguestfs \
-      virt-top
+      virt-top || { echo "Failed to install virtualization packages"; exit 1; }
 
     flatpak install flathub org.virt_manager.virt-manager
 

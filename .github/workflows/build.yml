@@ -41,8 +41,13 @@ jobs:
       - name: Checkout Push to Registry action
         uses: actions/checkout@v4
 
-      - name: Check just syntax
-        uses: ublue-os/just-action@v2
+       - name: Check just syntax
+         uses: ublue-os/just-action@v2
+
+       - name: Lint scripts
+         run: |
+           sudo apt-get update && sudo apt-get install -y shellcheck
+           shellcheck scripts/*.sh || { echo "Shellcheck failed"; exit 1; }
 
       - name: Generate tags
         id: generate-tags

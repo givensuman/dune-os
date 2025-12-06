@@ -29,9 +29,11 @@ packages=(
   docker-compose-plugin
   containerd.io
   podman-compose
+  buildah
+  skopeo
 )
 
-dnf5 -y install "${packages[@]}"
+dnf5 -y install "${packages[@]}" || { echo "Failed to install packages"; exit 1; }
 
 if rpm -q docker-ce >/dev/null; then
   systemctl enable docker.socket
@@ -40,5 +42,5 @@ if rpm -q docker-ce >/dev/null; then
 fi
 
 # Disable additional repos
-sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/terra.repo
-sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/docker-ce.repo
+[ -f /etc/yum.repos.d/terra.repo ] && sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/terra.repo
+[ -f /etc/yum.repos.d/docker-ce.repo ] && sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/docker-ce.repo
