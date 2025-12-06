@@ -95,53 +95,9 @@ setup-virtualization:
 
     # Compile and install SELinux policy module for virt-manager
     cp /usr/share/ublue-os/selinux/virtmanager.te /tmp
+
     checkmodule -M -m -o /tmp/virtmanager.mod /tmp/virtmanager.te
     semodule_package -o /tmp/virtmanager.pp -m /tmp/virtmanager.mod
     sudo semodule -i /tmp/virtmanager.pp
 
     rm -f /tmp/virtmanager.*
-
-setup-givens-cool-stuff:
-    #!/bin/bash
-    set -ouex pipefail
-
-    git clone https://github.com/givensuman/dotfiles ~/Downloads/dotfiles
-    for entry in ~/Downloads/dotfiles/*; do
-      if [[ -d $entry ]]; then
-
-    file_name=$(basename "$entry")
-        mkdir -p "$HOME/.config/$file_name"
-        cp -r "$entry/"* "$HOME/.config/$file_name/"
-      fi
-    done
-
-    brew install \
-      bat \
-      eza \
-      fd \
-      fzf \
-      gh \
-      lazygit \
-      mise \
-      neovim \
-      opencode \
-      ripgrep \
-      zoxide
-
-    flatpaks=(
-      app/com.discordapp.Discord
-      app/de.haeckerfelix.Fragments
-      app/io.github.shiftey.Desktop
-      app/org.localsend.localsend_app
-      app/com.spotify.Client
-    )
-
-    for PKG in "${flatpaks[@]}"; do
-      flatpak install --user flathub "$PKG"
-    done
-
-    rpm-ostree -y install fish
-    usermod -s $(which fish) $USER
-
-    bat cache --build
-    mise install

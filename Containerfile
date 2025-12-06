@@ -1,9 +1,8 @@
-FROM ghcr.io/ublue-os/base-main AS dune-os
+FROM ghcr.io/ublue-os/base-main AS appa-os
 
-LABEL org.opencontainers.image.source=https://github.com/givensuman/dune-os
+LABEL org.opencontainers.image.source=https://github.com/givensuman/appa-os
 LABEL org.opencontainers.image.description="custom atomic linux build"
 LABEL org.opencontainers.image.licenses="Apache-2.0"
-
 
 # Copying system files into main image
 COPY system /
