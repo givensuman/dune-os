@@ -20,6 +20,11 @@ just := just_executable()
 default:
     @{{ just }} --list
 
+# Main build
+[group('Image')]
+main:
+    @{{ just }} build
+
 # Check Just Syntax
 [group('Just')]
 check:
