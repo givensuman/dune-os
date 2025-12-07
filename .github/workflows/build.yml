@@ -146,6 +146,7 @@ jobs:
 
       # Build image using Just
       - name: Build Image
+        id: build_image
         run: |
           just build dune-os ${{ env.ARG_IMAGE_TAG }}
 
@@ -164,21 +165,23 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-       # Push the image to GHCR
-       - name: Push To GHCR
-         run: |
-            podman tag localhost/dune-os:${{ env.ARG_IMAGE_TAG }} ${{ steps.registry_case.outputs.lowercase }}/dune-os:${{ steps.generate-tags.outputs.alias_tags }}
-            podman push ${{ steps.registry_case.outputs.lowercase }}/dune-os:${{ steps.generate-tags.outputs.alias_tags }}
+      # Push the image to GHCR
+      - name: Push To GHCR
+        id: push
+        run: |
+          for tag in ${{ steps.generate-tags.outputs.alias_tags }}; do
+            podman tag localhost/dune-os:${{ env.ARG_IMAGE_TAG }} ${{ steps.registry_case.outputs.lowercase }}/dune-os:$tag
+            podman push ${{ steps.registry_case.outputs.lowercase }}/dune-os:$tag
+            echo "digest=$(podman inspect ${{ steps.registry_case.outputs.lowercase }}/dune-os:$tag --format '{{.Digest}}')" >> $GITHUB_OUTPUT
+          done
 
       # Sign container
       - uses: sigstore/cosign-installer@v3.8.2
-
       - name: Sign container image
         shell: bash
         run: |
-          cosign sign -y --key env://COSIGN_PRIVATE_KEY ${{ steps.registry_case.outputs.lowercase }}/${{ steps.build_image.outputs.image }}@${TAGS}
+          cosign sign -y --key env://COSIGN_PRIVATE_KEY ${{ steps.registry_case.outputs.lowercase }}/dune-os:${{ env.ARG_IMAGE_TAG }}@${{ steps.push.outputs.digest }}
         env:
-          TAGS: ${{ steps.push.outputs.digest }}
           COSIGN_EXPERIMENTAL: false
           COSIGN_PRIVATE_KEY: ${{ secrets.SIGNING_SECRET }}
 
