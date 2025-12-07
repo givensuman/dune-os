@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "::group:: ===$(basename "$0")==="
+
 set -ouex pipefail
 
 dnf5 -y swap @gnome-desktop @cosmic-desktop
@@ -17,3 +19,5 @@ systemctl enable cosmic-greeter
 
 fc-cache -f /usr/share/fonts/Hack
 fc-cache -f /usr/share/fonts/Inter
+
+echo "::endgroup::"

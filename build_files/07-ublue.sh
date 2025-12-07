@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/usr/bin/bash
+
+echo "::group:: ===$(basename "$0")==="
 
 set -ouex pipefail
 
@@ -10,20 +12,14 @@ dnf5 -y install ublue-os-media-automount-udev
 
 systemctl --global enable podman.socket
 
-# Stellarite patches for `brew`
-systemctl enable brew-dir-fix.service
-systemctl enable brew-setup.service
-systemctl disable brew-upgrade.timer
-systemctl disable brew-update.timer
-
 curl -Lo /usr/share/bash-prexec \
   https://raw.githubusercontent.com/ublue-os/bash-preexec/master/bash-preexec.sh || { echo "Failed to download bash-prexec"; exit 1; }
 
 if systemctl cat -- uupd.timer &>/dev/null; then
   systemctl enable uupd.timer
 else
-  systemctl enable rpm-ostreed-automatic.timer
-  systemctl enable flatpak-system-update.timer
+  systemctl --global enable rpm-ostreed-automatic.timer
+  systemctl --global enable flatpak-system-update.timer
   systemctl --global enable flatpak-user-update.timer
 fi
 
@@ -38,5 +34,4 @@ for i in /etc/yum.repos.d/rpmfusion-*; do
   sed -i 's@enabled=1@enabled=0@g' "$i"
 done
 
-# Import Justfile recipes
-echo "import \"/usr/share/ublue-os/just/80-dune.just\"" >>/usr/share/ublue-os/justfile
+echo "::endgroup::"

@@ -5,10 +5,10 @@
 # https://github.com/kedacore/external-scalers/blob/main/artifacthub/azure-cosmos-db/0.1.0/artifacthub-pkg.yml
 # https://artifacthub.io/packages/keda-scaler/keda-official-external-scalers/external-scaler-azure-cosmos-db?modal=install
 
-name: appa-os
-displayName: Appa OS
+name: dune-os
+displayName: Dune OS
 description: custom atomic linux build
-logoURL: https://assets.zabbix.com/img/logo/zabbix_logo_500x131.png
+logoURL: https://raw.githubusercontent.com/givensuman/dune-os/main/assets/dune_logo.png
 license: Apache-2.0
 homeURL: https://github.com/givensuman/dune-os
 maintainers:

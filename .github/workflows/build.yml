@@ -41,13 +41,13 @@ jobs:
       - name: Checkout Push to Registry action
         uses: actions/checkout@v4
 
-       - name: Check just syntax
-         uses: ublue-os/just-action@v2
+      - name: Check just syntax
+        uses: ublue-os/just-action@v2
 
-       - name: Lint scripts
-         run: |
-           sudo apt-get update && sudo apt-get install -y shellcheck
-           shellcheck scripts/*.sh || { echo "Shellcheck failed"; exit 1; }
+      - name: Lint scripts
+        run: |
+          sudo apt-get update && sudo apt-get install -y shellcheck
+          shellcheck build_files/*.sh || { echo "Shellcheck failed"; exit 1; }
 
       - name: Generate tags
         id: generate-tags
@@ -140,27 +140,14 @@ jobs:
 
           labels: |
             io.artifacthub.package.readme-url=https://raw.githubusercontent.com/${{ github.repository }}/main/README.md
-            io.artifacthub.package.logo-url=https://raw.githubusercontent.com/${{ github.repository }}/main/assets/logo.png
+            io.artifacthub.package.logo-url=https://raw.githubusercontent.com/${{ github.repository }}/main/assets/dune_logo.png
             org.opencontainers.image.title=${{ env.MY_IMAGE_NAME }}
             org.opencontainers.image.version=${{ steps.labels.outputs.VERSION }}
 
-      # Build image using Buildah action
+      # Build image using Just
       - name: Build Image
-        id: build_image
-        uses: redhat-actions/buildah-build@v2
-        with:
-          containerfiles: |
-            ./Containerfile
-          # Postfix image name with -custom to make it a little more descriptive
-          # Syntax: https://docs.github.com/en/actions/learn-github-actions/expressions#format
-          image: ${{ env.MY_IMAGE_NAME }}
-          tags: |
-            ${{ steps.generate-tags.outputs.alias_tags }}
-          build-args: |
-            BASE_IMAGE_NAME=${{ env.ARG_BASE_IMAGE_NAME }}
-            IMAGE_TAG=${{ env.ARG_IMAGE_TAG }}
-          labels: ${{ steps.meta.outputs.labels }}
-          oci: false
+        run: |
+          just build dune-os ${{ env.ARG_IMAGE_TAG }}
 
       # Workaround bug where capital letters in your GitHub username make it impossible to push to GHCR.
       # https://github.com/macbre/push-to-ghcr/issues/12
@@ -177,21 +164,11 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # Push the image to GHCR (Image Registry)
-      - name: Push To GHCR
-        uses: redhat-actions/push-to-registry@v2
-        id: push
-        env:
-          REGISTRY_USER: ${{ github.actor }}
-          REGISTRY_PASSWORD: ${{ github.token }}
-        with:
-          image: ${{ steps.build_image.outputs.image }}
-          tags: ${{ steps.build_image.outputs.tags }}
-          registry: ${{ steps.registry_case.outputs.lowercase }}
-          username: ${{ env.REGISTRY_USER }}
-          password: ${{ env.REGISTRY_PASSWORD }}
-          extra-args: |
-            --disable-content-trust
+       # Push the image to GHCR
+       - name: Push To GHCR
+         run: |
+            podman tag localhost/dune-os:${{ env.ARG_IMAGE_TAG }} ${{ steps.registry_case.outputs.lowercase }}/dune-os:${{ steps.generate-tags.outputs.alias_tags }}
+            podman push ${{ steps.registry_case.outputs.lowercase }}/dune-os:${{ steps.generate-tags.outputs.alias_tags }}
 
       # Sign container
       - uses: sigstore/cosign-installer@v3.8.2
