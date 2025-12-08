@@ -29,7 +29,7 @@ if [[ ":Framework:" =~ :$VEN_ID: ]]; then
 	fi
 fi
 
-#shellcheck disable=SC2128
+# shellcheck disable=SC2128
 if [[ -n "$NEEDED_KARGS" ]]; then
 	echo "Found needed karg changes, applying the following: ${NEEDED_KARGS[*]}"
 	plymouth display-message --text="Updating kargs - Please wait, this may take a while" || true
