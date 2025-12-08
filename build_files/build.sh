@@ -4,12 +4,6 @@ echo "::group:: ===$(basename "$0")==="
 
 set -eoux pipefail
 
-# Copy system files
-cp -r /ctx/system_files/* /
-
-# Copy flatpak lists
-install -Dm0644 -t /etc/ublue-os/ /ctx/flatpaks/*.list
-
 # Run build scripts
 /ctx/build_files/00-image-info.sh
 /ctx/build_files/03-install-kernel-akmods.sh
