@@ -144,11 +144,21 @@ jobs:
             org.opencontainers.image.title=${{ env.MY_IMAGE_NAME }}
             org.opencontainers.image.version=${{ steps.labels.outputs.VERSION }}
 
-      # Build image using Just
+      # Build image using Buildah action
       - name: Build Image
         id: build_image
-        run: |
-          just build dune-os ${{ env.ARG_IMAGE_TAG }}
+        uses: redhat-actions/buildah-build@v2
+        with:
+          containerfiles: |
+            ./Containerfile
+          image: ${{ env.MY_IMAGE_NAME }}
+          tags: |
+            ${{ steps.generate-tags.outputs.alias_tags }}
+          build-args: |
+            BASE_IMAGE_NAME=${{ env.ARG_BASE_IMAGE_NAME }}
+            IMAGE_TAG=${{ env.ARG_IMAGE_TAG }}
+          labels: ${{ steps.meta.outputs.labels }}
+          oci: false
 
       # Workaround bug where capital letters in your GitHub username make it impossible to push to GHCR.
       # https://github.com/macbre/push-to-ghcr/issues/12
