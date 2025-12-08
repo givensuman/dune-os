@@ -28,7 +28,7 @@ env:
 
 jobs:
   push-ghcr:
-    name: Build and push image
+    name: build and push image
     runs-on: ubuntu-24.04
     continue-on-error: false
     permissions:
@@ -37,6 +37,9 @@ jobs:
       id-token: write
 
     steps:
+      - name: Free Disk Space (Ubuntu)
+        uses: jlumbroso/free-disk-space@v1.3.1
+
       # Checkout push-to-registry action GitHub repository
       - name: Checkout Push to Registry action
         uses: actions/checkout@v4
@@ -47,7 +50,7 @@ jobs:
       - name: Lint scripts
         run: |
           sudo apt-get update && sudo apt-get install -y shellcheck
-          shellcheck build_files/*.sh || { echo "Shellcheck failed"; exit 1; }
+          shellcheck build_scripts/*.sh || { echo "Shellcheck failed"; exit 1; }
 
       - name: Generate tags
         id: generate-tags
@@ -127,8 +130,12 @@ jobs:
       - name: Get current version
         id: labels
         run: |
-          ver=$(skopeo inspect docker://ghcr.io/ublue-os/${{ env.ARG_BASE_IMAGE_NAME }}:${{ env.ARG_IMAGE_TAG }} | jq -r '.Labels["org.opencontainers.image.version"]')
-          echo "VERSION=$ver" >> $GITHUB_OUTPUT
+          # Try to get version from base image, fallback to default if access fails
+          if ver=$(skopeo inspect docker://ghcr.io/ublue-os/base:stable 2>/dev/null | jq -r '.Labels["org.opencontainers.image.version"]' 2>/dev/null); then
+            echo "VERSION=$ver" >> $GITHUB_OUTPUT
+          else
+            echo "VERSION=unknown" >> $GITHUB_OUTPUT
+          fi
 
       # Build metadata
       - name: Image Metadata
@@ -194,6 +201,12 @@ jobs:
         env:
           COSIGN_EXPERIMENTAL: false
           COSIGN_PRIVATE_KEY: ${{ secrets.SIGNING_SECRET }}
+
+      - name: Cleanup build artifacts
+        run: |
+          # Clean up buildah/podman images and containers
+          podman system prune -f
+          buildah prune -f
 
   build_iso:
     name: build iso

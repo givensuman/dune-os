@@ -9,24 +9,9 @@
 
 ## About
 
-This is a custom Linux operating system designed around Fedora's [Atomic Desktops](https://fedoraproject.org/atomic-desktops/), as a community-driven adaptation of the [Universal Blue](https://universal-blue.org/) project. These systems are immutable by nature, which means users are actually gated from directly modifying the system, providing an incredibly secure form of interacting with the Linux platform.
+This is a custom Linux build designed around Fedora's [Atomic Desktops](https://fedoraproject.org/atomic-desktops/), as a community-driven adaptation of the [Universal Blue](https://universal-blue.org/) project. These systems are immutable by nature, which means users are actually gated from directly modifying the system, providing an incredibly secure form of interacting with the Linux platform.
 
-## What's Included
-
-- **Solid OS Core**  
-  Powered by the robust [ublue-os main](https://github.com/ublue-os/main), ensuring a reliable and stable base for your system.
-
-- **COSMIC Desktop Environment**  
-  The [COSMIC Desktop Environment](https://system76.com/cosmic/) by System76 is a new and exciting addition to the Linux desktop ecosystem.
-
-- **Flatpak App Store**  
-  Flatpak is preconfigured for seamless access to a vast library of applications right from the get-go.
-
-- **Homebrew Package Manager**  
-  Comes with [Homebrew](https://brew.sh/) for easy management of additional software packages.
-
-- Containerization Galore  
-  [Docker](https://www.docker.com/), [Podman](https://www.podman.io/), and [Distrobox](https://distrobox.it/) are set-up and ready for use, catering to all your containerization needs.
+This is the OS I use daily on a Framework 13 laptop. It features the [COSMIC desktop environment](https://system76.com/cosmic/), [Homebrew](https://brew.sh/) for package management, and anything you could want for containerized development.
 
 ## Installation
 
@@ -47,7 +32,7 @@ rpm-ostree install --apply-live fish
 sudo usermod -s $(which fish) $USER
 ```
 
-This is also a good time to set up rootless Docker, if you plan to use it:
+This is also a good time to set up rootless Docker, if you're into that sort of thing:
 
 ```bash
 sudo groupadd docker
@@ -59,11 +44,9 @@ And then get the rest of your software through the included app store or with `b
 ```bash
 brew install \
 nvim \
-lazygit \
 bat \
 eza \
-zoxide \
-gh \
+zoxide
 ```
 
 ## Secure Boot

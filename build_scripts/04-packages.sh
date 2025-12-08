@@ -7,32 +7,29 @@ set -eoux pipefail
 mkdir -p /etc/yum.repos.d
 dnf5 -y install dnf-plugins-core
 
-# Setup additional repos
+# Setup additional repos temporarily
 dnf5 config-manager addrepo --from-repofile=https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo
 dnf5 config-manager addrepo --from-repofile=https://download.docker.com/linux/fedora/docker-ce.repo
 
+# Group packages by source for better caching
 packages=(
-  # Opinionated additions
-  ghostty
-
-  # System packages
+  # Core packages
   git
-  vlc
   p7zip
   p7zip-plugins
-  wl-clipboard
-  libwayland-client
   wayland-protocols-devel
 
-  # Useful for atomic systems
+  # Opinionated additions
+  ghostty
+  vlc
+
+  # Container/Atomic packages
   docker-buildx-plugin
   docker-ce
   docker-ce-cli
   docker-compose-plugin
   containerd.io
   podman-compose
-  buildah
-  skopeo
 )
 
 dnf5 -y install "${packages[@]}" || {

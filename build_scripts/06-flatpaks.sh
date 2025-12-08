@@ -11,6 +11,8 @@ flatpak remote-delete cosmic --force || true
 flatpak remote-add --system --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 flatpak remote-add --system --if-not-exists cosmic https://apt.pop-os.org/cosmic/cosmic.flatpakrepo
 
+dnf5 -y install ublue-os-flatpak
+
 # Install flatpaks during build
 flatpak_refs=(
   app/com.github.tchx84.Flatseal

@@ -16,7 +16,7 @@ curl -Lo /usr/share/bash-prexec \
   https://raw.githubusercontent.com/ublue-os/bash-preexec/master/bash-preexec.sh || { echo "Failed to download bash-prexec"; exit 1; }
 
 if systemctl cat -- uupd.timer &>/dev/null; then
-  systemctl enable uupd.timer
+  systemctl --global enable uupd.timer
 else
   systemctl --global enable rpm-ostreed-automatic.timer
   systemctl --global enable flatpak-system-update.timer
