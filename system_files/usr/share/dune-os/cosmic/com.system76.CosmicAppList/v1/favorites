@@ -3,4 +3,5 @@
     "org.system76.CosmicStore",
     "org.mozilla.firefox",
     "com.mitchellh.ghostty",
+    "io.podman_desktop.PodmanDesktop",
 ]
