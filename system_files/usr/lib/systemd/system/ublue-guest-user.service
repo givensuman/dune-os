@@ -1,12 +1,12 @@
 [Unit]
 Description=Create guest user
 After=local-fs.target
-ConditionPathExists=!/var/lib/guest-user.done
+ConditionPathExists=!/var/lib/ublue-guest-user.done
 
 [Service]
 Type=oneshot
 ExecStart=/usr/sbin/useradd -m -s /bin/bash guest
-ExecStartPost=/usr/bin/touch /var/lib/guest-user.done
+ExecStartPost=/usr/bin/touch /var/lib/ublue-guest-user.done
 RemainAfterExit=yes
 
 [Install]

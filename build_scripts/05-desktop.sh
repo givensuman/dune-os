@@ -4,6 +4,7 @@ echo "::group:: ===$(basename "$0")==="
 
 set -ouex pipefail
 
+# Set up COSMIC
 dnf5 -y swap @gnome-desktop @cosmic-desktop
 
 systemctl disable gdm || true

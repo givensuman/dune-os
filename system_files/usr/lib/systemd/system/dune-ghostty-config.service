@@ -1,0 +1,12 @@
+[Unit]
+Description=Mount Ghostty config
+After=local-fs.target
+ConditionPathExists=!%h/.config/ghostty
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/cp -rn /usr/share/dune-os/ghostty %h/.config/ghostty
+
+[Install]
+WantedBy=default.target multi-user.target 

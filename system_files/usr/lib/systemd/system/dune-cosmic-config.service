@@ -1,0 +1,12 @@
+[Unit]
+Description=Mount COSMIC config
+After=local-fs.target
+ConditionPathExists=!%h/.config/cosmic
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/cp -rn /usr/share/dune-os/cosmic %h/.config/cosmic
+
+[Install]
+WantedBy=default.target multi-user.target 

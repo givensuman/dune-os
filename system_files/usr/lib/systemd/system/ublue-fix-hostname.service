@@ -1,12 +1,12 @@
 [Unit]
 Description=Fix hostname
 After=local-fs.target
-ConditionPathExists=!/var/lib/hostname-fix.done
+ConditionPathExists=!/var/lib/ublue-fix-hostname.done
 
 [Service]
 Type=oneshot
 ExecStart=/usr/bin/hostnamectl hostname "dune-os"
-ExecStartPost=/usr/bin/touch /var/lib/hostname-fix.done
+ExecStartPost=/usr/bin/touch /var/lib/ublue-fix-hostname.done
 RemainAfterExit=yes
 
 [Install]

@@ -1,5 +1,6 @@
 [Unit]
 Description=Preinstall Flatpaks
+After=local-fs.target
 After=network-online.target
 Wants=network-online.target
 ConditionPathExists=/usr/bin/flatpak

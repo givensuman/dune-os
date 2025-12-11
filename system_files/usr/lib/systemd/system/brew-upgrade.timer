@@ -1,5 +1,5 @@
 [Unit]
-Description=Timer for brew upgrade for on image brew
+Description=Timer for brew-upgrade.service
 Wants=network-online.target
 
 [Timer]
