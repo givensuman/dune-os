@@ -9,3 +9,4 @@ export DRACUT_NO_XATTR=1
 chmod 0600 "/lib/modules/$QUALIFIED_KERNEL/initramfs.img"
 
 echo "::endgroup::"
+

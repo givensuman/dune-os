@@ -15,3 +15,5 @@ rm -rf /var/cache/dnf5/* || true
 
 # Clean up any leftover build artifacts
 rm -rf /tmp/akmods* || true
+
+echo "::endgroup::"

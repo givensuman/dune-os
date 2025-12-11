@@ -48,4 +48,3 @@ fi
 [ -f /etc/yum.repos.d/docker-ce.repo ] && sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/docker-ce.repo
 
 echo "::endgroup::"
-

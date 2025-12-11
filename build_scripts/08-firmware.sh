@@ -13,3 +13,4 @@ mv -vf /tmp/mediatek-firmware/* /usr/lib/firmware/mediatek/
 rm -rf /tmp/mediatek-firmware
 
 echo "::endgroup::"
+

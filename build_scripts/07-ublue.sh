@@ -13,7 +13,10 @@ dnf5 -y install ublue-os-media-automount-udev
 systemctl --global enable podman.socket
 
 curl -Lo /usr/share/bash-prexec \
-  https://raw.githubusercontent.com/ublue-os/bash-preexec/master/bash-preexec.sh || { echo "Failed to download bash-prexec"; exit 1; }
+  https://raw.githubusercontent.com/ublue-os/bash-preexec/master/bash-preexec.sh || {
+  echo "Failed to download bash-prexec"
+  exit 1
+}
 
 if systemctl cat -- uupd.timer &>/dev/null; then
   systemctl --global enable uupd.timer
