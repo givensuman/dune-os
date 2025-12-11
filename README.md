@@ -76,6 +76,10 @@ For issues with the images, feel free to submit an issue in this repository. For
 
 ## Acknowledgments
 
-The idea for this atomic COSMIC-based system was inspired by the [Stellarite](https://github.com/BillyAddlers/stellarite) project. This repository is also a fork of the [Isengard](https://github.com/noelmiller/isengard) desktop. Artwork is by Jean "Moebius" Giraud.
+The idea for this atomic COSMIC-based system was inspired by the [Stellarite](https://github.com/BillyAddlers/stellarite) project. This repository is also a fork of the [Isengard](https://github.com/noelmiller/isengard) desktop. 
+
+Default wallpaper designed by [Milad Fakurian](https://unsplash.com/@fakurian).
+
+README Artwork is by Jean "Moebius" Giraud.
 
 <img src="./assets/dune_footer.png" />
