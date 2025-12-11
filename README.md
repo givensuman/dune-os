@@ -23,6 +23,9 @@ Alternatively, and preferably for most users, you can rebase from any Fedora Ato
 rpm-ostree rebase ostree-unverified-registry:ghcr.io/givensuman/dune-os:stable
 ```
 
+![](./assets/screenshot.png)
+*Default configuration*
+
 ## Post-Install
 
 You can layer whatever core packages you like on top of this build. I recommend installing your favorite shell:

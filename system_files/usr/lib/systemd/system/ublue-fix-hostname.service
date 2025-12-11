@@ -5,7 +5,7 @@ ConditionPathExists=!/var/lib/hostname-fix.done
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/hostnamectl hostname "appa-os"
+ExecStart=/usr/bin/hostnamectl hostname "dune-os"
 ExecStartPost=/usr/bin/touch /var/lib/hostname-fix.done
 RemainAfterExit=yes
 
