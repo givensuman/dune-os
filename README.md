@@ -32,11 +32,11 @@ _Default configuration_
 
 ## Post-Install
 
-You can layer whatever core packages you like on top of this build. I recommend installing your favorite shell:
+You can layer whatever core packages you like on top of this build. If you don't like Fish, I recommend installing your favorite shell:
 
 ```bash
-rpm-ostree install --apply-live fish
-sudo usermod -s $(which fish) $USER
+rpm-ostree install --apply-live zsh
+sudo usermod -s $(which zsh) $USER
 ```
 
 This is also a good time to set up rootless Docker, if you're into that sort of thing:
@@ -49,10 +49,12 @@ sudo usermod -aG docker $USER
 And then get the rest of your software through the included app store or with `brew`:
 
 ```bash
+# Let's install some oxidized coreutils
 brew install \
-nvim \
 bat \
 eza \
+fd \
+ripgrep \
 zoxide
 ```
 
