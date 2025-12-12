@@ -1,7 +1,11 @@
 cosign.key
+
 .DS_STORE
 *.iso
 *.iso-CHECKSUM
 upload/
 tmp/
 *.log
+_build_*
+output
+_build-*/**

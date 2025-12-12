@@ -50,7 +50,7 @@ jobs:
       - name: Lint scripts
         run: |
           sudo apt-get update && sudo apt-get install -y shellcheck
-          shellcheck build_scripts/*.sh || { echo "Shellcheck failed"; exit 1; }
+          shellcheck build_files/*.sh || { echo "Shellcheck failed"; exit 1; }
 
       - name: Generate tags
         id: generate-tags

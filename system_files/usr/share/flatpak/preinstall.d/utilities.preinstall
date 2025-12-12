@@ -9,3 +9,6 @@ Branch=stable
 
 [Flatpak Preinstall io.podman_desktop.PodmanDesktop]
 Branch=stable
+
+[Flatpak Preinstall org.virt_manager.virt-manager]
+Branch=stable

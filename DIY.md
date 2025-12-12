@@ -15,7 +15,7 @@ To obtain a key, use the [cosign](https://github.com/sigstore/cosign) tool. `cos
 
 ## Configuring
 
-Your new OS gets built from its [Containerfile](./Containerfile), inside of which we run the contents of the `build_scripts` directory. Our scripts do most of the leg work, but we can also add content through the `system_files` directory. Universal Blue images will essentially flat-merge these files into the system.
+Your new OS gets built from its [Containerfile](./Containerfile), inside of which we run the contents of the `build_files` directory. Our scripts do most of the leg work, but we can also add content through the `system_files` directory. Universal Blue images will essentially flat-merge these files into the system.
 
 During the build process the system is not yet set to read-only, so we can do anything outside of userland. That means `dnf` will suffice for installing packages.
 

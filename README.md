@@ -19,12 +19,20 @@ If you'd like to use this yourself, please feel free! If you'd like to build you
 
 ## Installation
 
+Verify the image signature with `cosign`:
+
+```bash
+cosign verify --key \
+https://github.com/givensuman/dune-os/raw/main/cosign.pub \
+ghcr.io/givensuman/dune-os:stable
+```
+
 You can download an ISO from the latest [Github Action Build Artifact](https://github.com/givensuman/dune-os/actions/workflows/build_iso.yml). GitHub requires you be logged in to download.
 
 Alternatively, and preferably for most users, you can rebase from any Fedora Atomic image by running the following:
 
 ```bash
-rpm-ostree rebase ostree-unverified-registry:ghcr.io/givensuman/dune-os:stable
+sudo bootc switch --enforce-container-sigpolicy ghcr.io/givensuman/dune-os:stable
 ```
 
 ![](./assets/screenshot.png)
@@ -58,6 +66,8 @@ ripgrep \
 zoxide
 ```
 
+Pre-configured post-install scripts are in my [Justfile](./system_files/usr/share/dune-os/just/dune.just), although the primary purpose of these is to manage my own dotfiles. All Justfile scripts can be seen by running `ujust`.
+
 <img src="./assets/moebius-02.jpg" align="center" />
 
 ## Secure Boot
@@ -84,10 +94,24 @@ For issues with the images, feel free to submit an issue in this repository. For
 
 ## Acknowledgments
 
-The idea for this atomic COSMIC-based system was inspired by the [Stellarite](https://github.com/BillyAddlers/stellarite) project. This repository is also a fork of the [Isengard](https://github.com/noelmiller/isengard) desktop.
-
 Default wallpaper designed by [Milad Fakurian](https://unsplash.com/@fakurian).
 
 Artwork is by Jean "Moebius" Giraud.
+
+## See Also
+
+[BillyAddlers/stellarite](https://github.com/BillyAddlers/stellarite)
+
+[noelmiller/isengard](https://github.com/noelmiller/isengard)
+
+[ublue-os/bluefin](github.com/ublue-os/bluefin)
+
+[astrovm/amyos](https://github.com/astrovm/amyos)
+
+[Venefilyn/veneos](https://github.com/Venefilyn/veneos)
+
+[reyemxela/pulsar](https://github.com/reyemxela/pulsar)
+
+<hr />
 
 <img src="./assets/readme_footer.png" />

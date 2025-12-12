@@ -1,0 +1,14 @@
+[tools]
+bun = "latest"
+deno = "latest"
+go = "latest"
+lua = "latest"
+node = "latest"
+npm = "latest"
+python = "latest"
+rust = "latest"
+usage = "latest"
+uv = "latest"
+
+[settings]
+idiomatic_version_file_enable_tools = []
