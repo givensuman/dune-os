@@ -1,4 +1,4 @@
-<img src="./assets/dune_logo.png" />
+<img src="./assets/readme_header.png" />
 
 <div align="center">
   <img src="https://img.shields.io/github/actions/workflow/status/givensuman/dune-os/build.yml?labelColor=purple" />
@@ -13,6 +13,10 @@ This is a custom Linux build designed around Fedora's [Atomic Desktops](https://
 
 This is the OS I use daily on a Framework 13 laptop. It features the [COSMIC desktop environment](https://system76.com/cosmic/), [Homebrew](https://brew.sh/) for package management, and anything you could want for containerized development. It's unopinioated by design, other than preferring [Ghostty](https://ghostty.org/) for the terminal and [Catppuccin](https://catppuccin.com/) for the system theme.
 
+If you'd like to use this yourself, please feel free! If you'd like to build your own, consult the [DIY](./DIY.md) document.
+
+<img src="./assets/moebius-01.jpg" align="center" />
+
 ## Installation
 
 You can download an ISO from the latest [Github Action Build Artifact](https://github.com/givensuman/dune-os/actions/workflows/build_iso.yml). GitHub requires you be logged in to download.
@@ -24,7 +28,7 @@ rpm-ostree rebase ostree-unverified-registry:ghcr.io/givensuman/dune-os:stable
 ```
 
 ![](./assets/screenshot.png)
-*Default configuration*
+_Default configuration_
 
 ## Post-Install
 
@@ -52,6 +56,8 @@ eza \
 zoxide
 ```
 
+<img src="./assets/moebius-02.jpg" align="center" />
+
 ## Secure Boot
 
 Secure Boot is enabled by default on Universal Blue builds, adding an extra layer of security. During the initial installation, you will be prompted to enroll the secure boot key in the BIOS. To do so, enter the password `universalblue` when asked.
@@ -76,10 +82,10 @@ For issues with the images, feel free to submit an issue in this repository. For
 
 ## Acknowledgments
 
-The idea for this atomic COSMIC-based system was inspired by the [Stellarite](https://github.com/BillyAddlers/stellarite) project. This repository is also a fork of the [Isengard](https://github.com/noelmiller/isengard) desktop. 
+The idea for this atomic COSMIC-based system was inspired by the [Stellarite](https://github.com/BillyAddlers/stellarite) project. This repository is also a fork of the [Isengard](https://github.com/noelmiller/isengard) desktop.
 
 Default wallpaper designed by [Milad Fakurian](https://unsplash.com/@fakurian).
 
-README Artwork is by Jean "Moebius" Giraud.
+Artwork is by Jean "Moebius" Giraud.
 
-<img src="./assets/dune_footer.png" />
+<img src="./assets/readme_footer.png" />
