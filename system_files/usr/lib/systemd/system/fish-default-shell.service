@@ -1,0 +1,14 @@
+[Unit]
+Description=Set Fish as default shell
+After=local-fs.target
+ConditionPathExists=/usr/bin/fish
+ConditionPathExists=!/var/lib/fish-default-shell.done
+
+[Service]
+Type=oneshot
+ExecStart=/usr/sbin/usermod -s /usr/bin/fish
+ExecStartPost=/usr/bin/touch /var/lib/fish-default-shell.done
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,14 @@
+[Unit]
+Description=Mount Fish config
+After=local-fs.target
+ConditionPathExists=/usr/bin/fish
+ConditionPathExists=!%h/.config/fish
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/cp -rn /usr/share/dune-os/fish %h/.config/fish
+ExecStartPost=/usr/bin/fish -c "fisher update"
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

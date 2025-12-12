@@ -9,4 +9,4 @@ ExecStart=/usr/bin/cp -rn /usr/share/dune-os/cosmic %h/.config/cosmic
 RemainAfterExit=yes
 
 [Install]
-WantedBy=default.target multi-user.target 
+WantedBy=multi-user.target 

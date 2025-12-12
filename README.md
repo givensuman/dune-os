@@ -11,7 +11,7 @@
 
 This is a custom Linux build designed around Fedora's [Atomic Desktops](https://fedoraproject.org/atomic-desktops/), as a community-driven adaptation of the [Universal Blue](https://universal-blue.org/) project. These systems are immutable by nature, which means users are actually gated from directly modifying the system, providing an incredibly secure form of interacting with the Linux platform.
 
-This is the OS I use daily on a Framework 13 laptop. It features the [COSMIC desktop environment](https://system76.com/cosmic/), [Homebrew](https://brew.sh/) for package management, and anything you could want for containerized development. It's unopinioated by design, other than preferring [Ghostty](https://ghostty.org/) for the terminal and [Catppuccin](https://catppuccin.com/) for the system theme.
+This is the OS I use daily on a Framework 13 laptop. It features the [COSMIC desktop environment](https://system76.com/cosmic/), [Homebrew](https://brew.sh/) for package management, and anything you could want for containerized development. It's unopinioated by design, other than preferring [Ghostty](https://ghostty.org/) for the terminal, [Fish](https://fishshell.com) for our shell, and [Catppuccin](https://catppuccin.com/) for the system theme.
 
 If you'd like to use this yourself, please feel free! If you'd like to build your own, consult the [DIY](./DIY.md) document.
 

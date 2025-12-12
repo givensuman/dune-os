@@ -11,17 +11,17 @@ dnf5 -y install dnf-plugins-core
 dnf5 config-manager addrepo --from-repofile=https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo
 dnf5 config-manager addrepo --from-repofile=https://download.docker.com/linux/fedora/docker-ce.repo
 
-# Group packages by source for better caching
 packages=(
-  # Core packages
+  # System packages
   git
   p7zip
   p7zip-plugins
+  vlc
   wayland-protocols-devel
 
   # Opinionated additions
+  fish
   ghostty
-  vlc
 
   # Container/Atomic packages
   docker-buildx-plugin
