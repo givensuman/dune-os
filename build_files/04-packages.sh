@@ -20,7 +20,6 @@ packages=(
   vlc
   vlc-plugin-bittorrent
   vlc-plugin-ffmpeg
-  vlc-plugin-kde
   vlc-plugin-pause-click
   wayland-protocols-devel
   util-linux
@@ -28,6 +27,7 @@ packages=(
   # Opinionated additions
   fish
   ghostty
+  mise
 
   # Container/Atomic packages
   docker-buildx-plugin
