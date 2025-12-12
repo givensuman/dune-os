@@ -5,6 +5,7 @@ echo "::group:: ===$(basename "$0")==="
 set -eoux pipefail
 
 # My patches
+systemctl --global enable bash-config.setup.service
 systemctl --global enable dconf-update.service
 systemctl --global enable dune-cosmic-config.service
 systemctl --global enable dune-fish-config.service
