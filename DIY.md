@@ -21,7 +21,7 @@ During the build process the system is not yet set to read-only, so we can do an
 
 System `flatpaks` can be designated using [flatpak-preinstall](https://www.mankier.com/1/flatpak-preinstall). This is a useful way of assigning "default apps" for the OS. In the case of Dune, this is basically [GNOME applications](./system_files/usr/share/flatpak/preinstall.d/gnome.preinstall).
 
-Now we need to configure userland. You can do this via `systemd`. This will allow us to create "oneshot" services which run on first setup of the system. There are examples of this in the [/lib/systemd](./system_files/usr/lib/systemd/system) directory.
+Now we need to configure userland. You can do this via `systemd`. This will allow us to create "oneshot" services which run on first setup of the system. There are examples of this in the [/lib/systemd](./system_files/usr/lib/systemd/system) directory. Alternatively, and more conventionally, you can edit `/usr/share/ublue-os/justfile` to define Justfile scripts users can choose to run on their own.
 
 And that's about it! Go nuts.
 
