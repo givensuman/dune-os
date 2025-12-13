@@ -5,20 +5,20 @@ echo "::group:: ===$(basename "$0")==="
 set -eoux pipefail
 
 # My patches
-systemctl --global enable bash-config.setup.service
-systemctl --global enable dconf-update.service
-systemctl --global enable dune-cosmic-config.service
-systemctl --global enable dune-fish-config.service
-systemctl --global enable dune-ghostty-config.service
-systemctl --global enable fish-default-shell.service
-systemctl --global enable flatpak-preinstall.service
+systemctl enable bash-config.setup.service
+systemctl enable dconf-update.service
+systemctl enable dune-cosmic-config.service
+systemctl enable dune-fish-config.service
+systemctl enable dune-ghostty-config.service
+systemctl enable fish-default-shell.service
+systemctl enable flatpak-preinstall.service
 # Bluefin patches
-systemctl --global enable ublue-fix-hostname.service
-systemctl --global enable ublue-guest-user.service
+systemctl enable ublue-fix-hostname.service
+systemctl enable ublue-guest-user.service
 # Stellarite patches
-systemctl --global enable brew-fix-directory.service
-systemctl --global enable brew-setup.service
-systemctl --global enable brew-update.timer
-systemctl --global enable brew-upgrade.timer
+systemctl enable brew-fix-directory.service
+systemctl enable brew-setup.service
+systemctl enable brew-update.timer
+systemctl enable brew-upgrade.timer
 
 echo "::endgroup::"

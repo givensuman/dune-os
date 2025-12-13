@@ -19,7 +19,7 @@ dune-install-cli-tools:
 # Install Given's Fish plugins
 dune-install-fish-plugins:
     #!/usr/bin/env bash
-    if [[ ! -f /usr/share/dune-os/dotfiles/fish_plugins]]; then
+    if [[ ! -f /usr/share/dune-os/dotfiles/fish_plugins ]]; then
       echo "Missing fish_plugin file for reference..."
       exit 1
     fi
@@ -39,7 +39,7 @@ dune-setup-mise:
       exit 1
     fi
 
-    (cd ~/.config/mise/config.toml && mise install);
+    (cd ~/.config/mise && mise install);
 
 # Install Given's config files
 dune-setup-configs:
@@ -55,7 +55,8 @@ dune-setup-configs:
         for directory in /usr/share/dune-os/dotfiles/*/; do
           [[ ! -d "$directory" ]] && continue
           # Skip these configurations
-          [[ basename("$directory") == "gh" || basename("$directory") == "git" ]] && continue
+          d=$(basename $"directory")
+          [[ d == "git" || d == "gh" ]] && continue
           cp -r "$directory" ~/.config/
         done
       else
@@ -65,7 +66,7 @@ dune-setup-configs:
     fi
 
 # Sync local configs to `dune-os` repository. Intended for use by repository owner.
-dune-sync-to-repo-at:
+dune-sync-to-repo-at location:
     #!/usr/bin/env bash
     if [[ ! -z "$1" ]]; then
       echo "Missing argument..."
@@ -74,7 +75,9 @@ dune-sync-to-repo-at:
     fi
 
     source="/usr/share/dune-os/dotfiles"
-    destination="$1/system_files/usr/share/dune-os/dotfiles"
+    destination="{{ location }}/system_files/usr/share/dune-os/dotfiles"
+
+    echo "Syncing to {{ location }}..."
 
     # Sync config files
     for directory in "$source/*/"; do

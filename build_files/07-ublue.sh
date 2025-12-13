@@ -37,7 +37,7 @@ dnf5 config-manager setopt fedora-cisco-openh264.enabled=0
 
 dnf5 config-manager setopt rpmfusion-nonfree-nvidia-driver.enabled=0
 dnf5 config-manager setopt rpmfusion-nonfree-steam.enabled=0
-
+# Or, as fallback
 for i in /etc/yum.repos.d/rpmfusion-*; do
   sed -i 's@enabled=1@enabled=0@g' "$i"
 done
