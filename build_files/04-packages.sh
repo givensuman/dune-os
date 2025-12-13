@@ -14,6 +14,7 @@ dnf5 config-manager addrepo --from-repofile=https://download.docker.com/linux/fe
 packages=(
   # System packages
   git
+  iwd
   p7zip
   p7zip-plugins
   mpv
