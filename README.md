@@ -100,17 +100,25 @@ Artwork is by Jean "Moebius" Giraud.
 
 ## See Also
 
-[BillyAddlers/stellarite](https://github.com/BillyAddlers/stellarite)
+Intitial interest and some `systemd` patches:
 
-[noelmiller/isengard](https://github.com/noelmiller/isengard)
+- [ublue-os/bluefin](github.com/ublue-os/bluefin)
 
-[ublue-os/bluefin](github.com/ublue-os/bluefin)
+- [BillyAddlers/stellarite](https://github.com/BillyAddlers/stellarite)
 
-[astrovm/amyos](https://github.com/astrovm/amyos)
+Bulk of CI/CD workflows:
 
-[Venefilyn/veneos](https://github.com/Venefilyn/veneos)
+- [noelmiller/isengard](https://github.com/noelmiller/isengard)
 
-[reyemxela/pulsar](https://github.com/reyemxela/pulsar)
+Interesting projects I stole bits and pieces from:
+
+- [astrovm/amyos](https://github.com/astrovm/amyos)
+  
+- [m2Giles/m2os](https://github.com/m2Giles/m2os)
+
+- [Venefilyn/veneos](https://github.com/Venefilyn/veneos)
+
+- [reyemxela/pulsar](https://github.com/reyemxela/pulsar)
 
 <hr />
 
