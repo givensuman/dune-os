@@ -15,7 +15,7 @@ This is the OS I use daily on a Framework 13 laptop. It features the [COSMIC des
 
 If you'd like to use this yourself, please feel free! If you'd like to build your own, consult the [DIY](./DIY.md) document.
 
-<img src="./assets/moebius-01.jpg" align="center" />
+<img src="./assets/moebius-01.jpg" />
 
 ## Installation
 
@@ -68,7 +68,7 @@ zoxide
 
 Pre-configured post-install scripts are in my [Justfile](./system_files/usr/share/dune-os/just/dune.just), although the primary purpose of these is to manage my own dotfiles. All Justfile scripts can be seen by running `ujust`.
 
-<img src="./assets/moebius-02.jpg" align="center" />
+<img src="./assets/moebius-02.jpg" />
 
 ## Secure Boot
 
