@@ -11,8 +11,7 @@ dune-install-cli-tools:
 
     while IFS= read -r package || [[ -n "$package" ]]; do
       # Skip empty lines and comments
-      # TODO: Does this regex expression work?
-      [[ -z "$package" || "$package" =~ "^[[:space:]]*#" ]] && continue
+      [[ -z "$package" || "$package" =~ ^[[:space:]]*# ]] && continue
       echo "Installing $package..."
       brew install "$package"
     done < /usr/share/dune-os/dotfiles/brew_packages
@@ -27,8 +26,7 @@ dune-install-fish-plugins:
 
     while IFS= read -r plugin || [[ -n "$plugin" ]]; do
       # Skip empty lines and comments
-      # TODO: Does this regex expression work?
-      [[ -z "$plugin" || "$plugin" =~ "^[[:space:]]*#" ]] && continue
+      [[ -z "$plugin" || "$plugin" =~ ^[[:space:]]*# ]] && continue
       echo "Installing $plugin..."
       /usr/bin/fish -c "fisher install $plugin"
     done < /usr/share/dune-os/dotfiles/fish_plugins
