@@ -68,7 +68,7 @@ dune-setup-configs:
 # Sync local configs to `dune-os` repository. Intended for use by repository owner.
 dune-sync-to-repo-at location:
     #!/usr/bin/env bash
-    if [[ ! -z "$1" ]]; then
+    if [[ ! {{ location }} ]]; then
       echo "Missing argument..."
       echo "Tell me where the `dune-os` repository is."
       exit 1
