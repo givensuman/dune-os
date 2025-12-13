@@ -45,19 +45,19 @@ dune-setup-mise:
 dune-setup-configs:
     #!/usr/bin/env bash
     if [[ "$(read -e -p 'Are you Given? [y/N]: '; echo $REPLY)" == [Yy]* ]]; then
-      for directory in /usr/share/dune-os/dotfiles/*/; do
-        [[ ! -d "$directory" ]] && continue
-        cp -r "$directory" ~/.config/
+      for dir in /usr/share/dune-os/dotfiles/*/; do
+        [[ ! -d "$dir" ]] && continue
+        cp -r "$dir" ~/.config/
       done
     else
       echo "I am about to override a number of configuration directories."
       if [[ "$(read -e -p 'Are you sure I should do this? [y/N]: '; echo $REPLY)" == [Yy]* ]]; then
-        for directory in /usr/share/dune-os/dotfiles/*/; do
-          [[ ! -d "$directory" ]] && continue
+        for dir in /usr/share/dune-os/dotfiles/*/; do
+          [[ ! -d "$dir" ]] && continue
           # Skip these configurations
-          d=$(basename $"directory")
-          [[ d == "git" || d == "gh" ]] && continue
-          cp -r "$directory" ~/.config/
+          dirname=$(basename "$dir")
+          [[ dirname == "git" || dirname == "gh" ]] && continue
+          cp -r "$dir" ~/.config/
         done
       else
         echo "Fair enough! No changes will be made."
@@ -80,12 +80,15 @@ dune-sync-to-repo-at location:
     echo "Syncing to {{ location }}..."
 
     # Sync config files
-    for directory in "$source/*/"; do
-      [[ ! -d "$directory" ]] && continue
-      if [[ -d "~/.config/$(basename $directory)" ]]; then
-        cp -r "~/.config/$(basename $directory)" $destination
+    for dir in "$source/*/"; do
+      [[ ! -d "$dir" ]] && continue
+
+      dirname=$(basename "$dir")
+
+      if [[ -d "~/.config/$dirname" ]]; then
+        cp -r "~/.config/$dirname" $destination
       else
-        echo "Missing ~/.config/$(basename $directory)..."
+        echo "Missing ~/.config/$dirname..."
       fi
     done
 

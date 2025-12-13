@@ -21,9 +21,12 @@ find /var/cache/* -maxdepth 0 -type d \! -name libdnf5 \! -name rpm-ostree -exec
 # Cleanup extra directories in /usr/lib/modules
 KERNEL_VERSION="$(dnf5 repoquery --installed --queryformat='%{evr}.%{arch}' kernel)"
 
-for kernel_dir in /usr/lib/modules/*; do
-  if [[ "$kernel_dir" != "/usr/lib/modules/$KERNEL_VERSION" ]]; then
-    rm -rf "$kernel_dir"
+for dir in /usr/lib/modules/*; do
+  [ ! -d "$dir" ] && continue
+
+  dirname=$(basename "$dir")
+  if [[ "$dirname" != "$KERNEL_VERSION" ]]; then
+    rm -rf "$dir"
   fi
 done
 
