@@ -51,11 +51,18 @@ dnf5 -y install "${packages[@]}" || {
   exit 1
 }
 
+if rpm -q iwd >/dev/null; then
+  systemctl --global enable iwd.service
+fi
+
 if rpm -q docker-ce >/dev/null; then
-  systemctl enable docker.socket
-  systemctl enable containerd.service
-  systemctl enable docker.service
-  systemctl enable libvirtd.service
+  systemctl --global enable docker.socket
+  systemctl --global enable containerd.service
+  systemctl --global enable docker.service
+fi
+
+if rpm -q libvirt >/dev/null; then
+  systemctl --global enable libvirtd.service
 fi
 
 # Disable additional repos
