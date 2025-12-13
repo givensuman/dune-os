@@ -30,9 +30,14 @@ fi
 dnf5 -y copr disable ublue-os/staging
 dnf5 -y copr disable ublue-os/packages
 dnf5 -y copr disable phracek/PyCharm
-sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/negativo17-fedora-multimedia.repo
-sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/_copr_ublue-os-akmods.repo
-sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/fedora-cisco-openh264.repo
+
+dnf5 config-manager setopt negativo17-fedora-multimedia.enabled=0
+dnf5 config-manager setopt _copr_ublue-os-akmods.enabled=0
+dnf5 config-manager setopt fedora-cisco-openh264.enabled=0
+
+dnf5 config-manager setopt rpmfusion-nonfree-nvidia-driver.enabled=0
+dnf5 config-manager setopt rpmfusion-nonfree-steam.enabled=0
+
 for i in /etc/yum.repos.d/rpmfusion-*; do
   sed -i 's@enabled=1@enabled=0@g' "$i"
 done
