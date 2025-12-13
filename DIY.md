@@ -1,6 +1,6 @@
 This document aims to guide you through setting up your own spin of a Universal Blue OS. You can also consult Universal Blue's [image template](https://github.com/ublue-os/image-template) which does a pretty good job documenting this stuff.
 
-<img src="./assets/moebius-03.jpg" align="center" />
+<img src="./assets/moebius-03.jpg" />
 
 ## Repository Setup
 
@@ -39,4 +39,4 @@ This list is not comprehensive and in my experience building your own OS will ta
 
 - Tweak the custom boot splash image in [`/usr/share/plymouth/themes/spinner`](./system_files/usr/share/plymouth/themes/spinner) to your needs.
 
-<img src="./assets/moebius-04.jpg" align="center" />
+<img src="./assets/moebius-04.jpg" />
