@@ -5,7 +5,7 @@ ConditionPathExists=!/var/lib/bash-config-setup.done
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/cat >> %h/.bashrc << EOF
+ExecStart=/usr/bin/tee -a %h/.bashrc << EOF
 # ghostty
 if [ -n "${GHOSTTY_RESOURCES_DIR}" ]; then
     builtin source "${GHOSTTY_RESOURCES_DIR}/shell-integration/bash/ghostty.bash"

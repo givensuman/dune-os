@@ -5,8 +5,8 @@ ConditionPathExists=!%h/.config/cosmic
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/cp -rn /usr/share/dune-os/cosmic %h/.config/cosmic
+ExecStart=/usr/bin/cp -rn /usr/share/dune-os/defaults/cosmic %h/.config/cosmic
 RemainAfterExit=yes
 
 [Install]
-WantedBy=multi-user.target 
+WantedBy=multi-user.target

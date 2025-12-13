@@ -5,7 +5,7 @@ ConditionPathExists=!/var/lib/ublue-fix-hostname.done
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/hostnamectl hostname "dune-os"
+ExecStart=/usr/bin/hostnamectl hostname "dune"
 ExecStartPost=/usr/bin/touch /var/lib/ublue-fix-hostname.done
 RemainAfterExit=yes
 

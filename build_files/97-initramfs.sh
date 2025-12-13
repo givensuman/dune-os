@@ -6,7 +6,6 @@ trap '[[ $BASH_COMMAND != echo* ]] && [[ $BASH_COMMAND != log* ]] && echo "+ $BA
 
 export DRACUT_NO_XATTR=1
 
-# Get kernel version and build initramfs
 KERNEL_VERSION="$(dnf5 repoquery --installed --queryformat='%{evr}.%{arch}' kernel)"
 /usr/bin/dracut \
   --no-hostonly \

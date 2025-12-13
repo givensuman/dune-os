@@ -15,5 +15,6 @@ dnf5 -y install ublue-os-flatpak
 
 # Prefer firefox flatpak
 dnf5 -y remove firefox
+dnf5 -y remove firefox-langpacks
 
 echo "::endgroup::"

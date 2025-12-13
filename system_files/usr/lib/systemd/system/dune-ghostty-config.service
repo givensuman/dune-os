@@ -5,8 +5,8 @@ ConditionPathExists=!%h/.config/ghostty
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/cp -rn /usr/share/dune-os/ghostty %h/.config/ghostty
+ExecStart=/usr/bin/cp -rn /usr/share/dune-os/defaults/ghostty %h/.config/ghostty
 RemainAfterExit=yes
 
 [Install]
-WantedBy=multi-user.target 
+WantedBy=multi-user.target
