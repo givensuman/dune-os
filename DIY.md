@@ -37,6 +37,6 @@ This list is not comprehensive and in my experience building your own OS will ta
 
 - Revise `systemd` services in [`/usr/lib/systemd/system/`](./system_files/usr/lib/systemd/system/), and their enabling in [`97-systemd.sh`](./build_files/97-systemd.sh).
 
-- Tweak the custom boot splash screen in [`/usr/share/plymouth/themes/`](./system_files/usr/share/plymouth/themes/) to your needs.
+- Tweak the custom boot splash image in [`/usr/share/plymouth/themes/spinner`](./system_files/usr/share/plymouth/themes/spinner) to your needs.
 
 <img src="./assets/moebius-04.jpg" align="center" />

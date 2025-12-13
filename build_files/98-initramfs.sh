@@ -4,8 +4,6 @@ echo "::group:: ===$(basename "$0")==="
 
 trap '[[ $BASH_COMMAND != echo* ]] && [[ $BASH_COMMAND != log* ]] && echo "+ $BASH_COMMAND"' DEBUG
 
-plymouth-set-default-theme dune
-
 export DRACUT_NO_XATTR=1
 
 # Get kernel version and build initramfs
