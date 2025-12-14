@@ -1,5 +1,5 @@
 <div align="center">
-<img src="./assets/readme_header.png" />
+  <img src="./assets/readme_header.png" />
 
   <img src="https://img.shields.io/github/actions/workflow/status/givensuman/dune-os/build.yml?labelColor=purple" />
   <img src="https://img.shields.io/github/actions/workflow/status/givensuman/dune-os/build_iso.yml?label=build%20iso&labelColor=blue" />
