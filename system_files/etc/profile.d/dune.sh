@@ -19,11 +19,6 @@ elif [ -d "$HOME/.linuxbrew/bin" ]; then
     eval "$($HOME/.linuxbrew/bin/brew shellenv)"
 fi
 
-# mise
-if command -v mise &> /dev/null; then
-    eval "$(mise activate bash)"
-fi
-
 # Enable Flatpak exports
 if [ -d "/var/lib/flatpak/exports/bin" ]; then
     export PATH="$PATH:/var/lib/flatpak/exports/bin"

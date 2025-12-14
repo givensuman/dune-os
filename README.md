@@ -38,7 +38,7 @@ sudo bootc switch --enforce-container-sigpolicy ghcr.io/givensuman/dune-os:stabl
 Dune is developed on and builds two branches: `main` and `dev`. `ghcr.io/givensuman/dune-os:stable` points to `main` builds, whereas the `dev` branch is the one I'm working off of and maybe partially broken at any given time.
 
 ![](./assets/screenshot.png)
-_Default configuration_
+_Default configuration with some additional apps and the Fish shell (see: github.com/givensuman/dune-configs)_
 
 ## Post-Install
 
