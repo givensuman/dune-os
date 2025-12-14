@@ -14,8 +14,8 @@ dnf5 swap -y \
 dnf5 -y install ublue-brew
 dnf5 -y install ublue-os-media-automount-udev
 
-systemctl --global enable podman.socket
-systemctl --global enable podman-auto-update.timer
+systemctl --global enable podman.socket || true
+systemctl --global enable podman-auto-update.timer || true
 
 curl -Lo /usr/share/bash-prexec \
   https://raw.githubusercontent.com/ublue-os/bash-preexec/master/bash-preexec.sh || {
@@ -26,9 +26,9 @@ curl -Lo /usr/share/bash-prexec \
 if systemctl cat -- uupd.timer &>/dev/null; then
   systemctl --global enable uupd.timer
 else
-  systemctl --global enable rpm-ostreed-automatic.timer
-  systemctl --global enable flatpak-system-update.timer
-  systemctl --global enable flatpak-user-update.timer
+  systemctl --global enable rpm-ostreed-automatic.timer || true
+  systemctl --global enable flatpak-system-update.timer || true
+  systemctl --global enable flatpak-user-update.timer || true
 fi
 
 # Move directories from /var/opt to /usr/lib/opt

@@ -4,7 +4,7 @@ echo "::group:: ===$(basename "$0")==="
 
 set -eoux pipefail
 
-# Distrobox Stuff
+# Distrobox stuff
 mkdir -p /etc/distrobox/
 
 tee -a /etc/distrobox/distrobox.ini << EOF
@@ -14,7 +14,6 @@ image=ghcr.io/ublue-os/fedora-toolbox:latest
 nvidia=true
 entry=false
 volume="/home/linuxbrew/:/home/linuxbrew:rslave"
-
 EOF
 
 tee -a /etc/distrobox/distrobox.ini << EOF
@@ -23,7 +22,6 @@ image=ghcr.io/ublue-os/ubuntu-toolbox:latest
 nvidia=true
 entry=false
 volume="/home/linuxbrew/:/home/linuxbrew:rslave"
-
 EOF
 
 tee /etc/distrobox/distrobox.conf << EOF

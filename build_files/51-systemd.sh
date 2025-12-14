@@ -5,12 +5,11 @@ echo "::group:: ===$(basename "$0")==="
 set -eoux pipefail
 
 # My patches
-systemctl enable bash-config.setup.service
+systemctl enable bash-config-setup.service
 systemctl enable dconf-update.service
 systemctl enable dune-cosmic-config.service
 systemctl enable dune-fish-config.service
 systemctl enable dune-ghostty-config.service
-systemctl enable fish-default-shell.service
 systemctl enable flatpak-preinstall.service
 # Bluefin patches
 systemctl enable ublue-fix-hostname.service

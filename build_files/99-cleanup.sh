@@ -54,20 +54,17 @@ done
 # To be safe...
 repos=(
   docker-ce
+  terra
   fedora-cisco-openh264
   fedora-updates
   fedora-updates-archive
   fedora-updates-testing
-  ganto-lxc4-fedora-"$(rpm -E %fedora)"
-  ganto-umoci-fedora-"$(rpm -E %fedora)"
   google-chrome
   negativo17-fedora-multimedia
   negativo17-fedora-nvidia
   nvidia-container-toolkit
   rpm-fusion-nonfree-nvidia-driver
   rpm-fusion-nonfree-steam
-  terra
-  ublue-os-staging-fedora-"$(rpm -E %fedora)"
 )
 
 for repo in "${repos[@]}"; do

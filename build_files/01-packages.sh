@@ -11,9 +11,8 @@ dnf5 -y install dnf-plugins-core
 dnf5 config-manager addrepo --from-repofile=https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo
 dnf5 config-manager addrepo --from-repofile=https://download.docker.com/linux/fedora/docker-ce.repo
 
-dnf5 config-manager setopt terra.enabled=1
-dnf5 config-manager setopt docker-ce.enabled=1
-
+dnf5 config-manager setopt terra.enabled=1 || true
+dnf5 config-manager setopt docker-ce.enabled=1 || true
 
 packages=(
   # System packages
@@ -70,7 +69,7 @@ if rpm -q libvirt >/dev/null; then
 fi
 
 # Disable additional repos
-dnf5 config-manager setopt terra.enabled=0
-dnf5 config-manager setup docker-ce.enabled=0
+dnf5 config-manager setopt terra.enabled=0 || true
+dnf5 config-manager setopt docker-ce.enabled=0 || true
 
 echo "::endgroup::"
