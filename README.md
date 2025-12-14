@@ -35,6 +35,8 @@ Alternatively, and preferably for most users, you can rebase from any Fedora Ato
 sudo bootc switch --enforce-container-sigpolicy ghcr.io/givensuman/dune-os:stable
 ```
 
+Dune is developed on and builds two branches: `stable` and `dev`. `ghcr.io/givensuman/dune-os:stable` points to stable releases, whereas the `dev` branch is the one I'm working off of and mayb be partially broken at any given time. Unless you're looking for that, stick with `stable`. 
+
 ![](./assets/screenshot.png)
 _Default configuration_
 
