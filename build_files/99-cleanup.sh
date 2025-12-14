@@ -44,6 +44,9 @@ dnf5 config-manager setopt negativo17-fedora-multimedia.enabled=0 || true
 dnf5 config-manager setopt _copr_ublue-os-akmods.enabled=0 || true
 dnf5 config-manager setopt fedora-cisco-openh264.enabled=0 || true
 
+dnf5 config-manager setopt terra.enabled=0 || true
+dnf5 config-manager setopt docker-ce.enabled=0 || true
+
 dnf5 config-manager setopt rpmfusion-nonfree-nvidia-driver.enabled=0 || true
 dnf5 config-manager setopt rpmfusion-nonfree-steam.enabled=0 || true
 # Or, as fallback

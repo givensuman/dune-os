@@ -11,7 +11,6 @@ tee -a /etc/distrobox/distrobox.ini << EOF
 
 [fedora-distrobox]
 image=ghcr.io/ublue-os/fedora-toolbox:latest
-nvidia=true
 entry=false
 volume="/home/linuxbrew/:/home/linuxbrew:rslave"
 EOF
@@ -19,7 +18,6 @@ EOF
 tee -a /etc/distrobox/distrobox.ini << EOF
 [ubuntu-distrobox]
 image=ghcr.io/ublue-os/ubuntu-toolbox:latest
-nvidia=true
 entry=false
 volume="/home/linuxbrew/:/home/linuxbrew:rslave"
 EOF

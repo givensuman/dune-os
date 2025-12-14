@@ -8,6 +8,10 @@ set -ouex pipefail
 dnf5 -y swap @gnome-desktop @cosmic-desktop
 
 packages=(
+  ghostty
+  rsms-inter-fonts
+  hack-nerd-fonts
+
   gdisk
   gnome-disk-utility
   gnome-keyring

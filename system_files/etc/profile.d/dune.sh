@@ -1,11 +1,5 @@
-[Unit]
-Description=Tweak default .bashrc
-After=local-fs.target
-ConditionPathExists=!/var/lib/bash-config-setup.done
+#!/bin/bash
 
-[Service]
-Type=oneshot
-ExecStart=/usr/bin/tee -a %h/.bashrc << EOF
 # ghostty
 if [ -n "${GHOSTTY_RESOURCES_DIR}" ]; then
     builtin source "${GHOSTTY_RESOURCES_DIR}/shell-integration/bash/ghostty.bash"
@@ -34,18 +28,3 @@ fi
 if [ -d "/var/lib/flatpak/exports/bin" ]; then
     export PATH="$PATH:/var/lib/flatpak/exports/bin"
 fi
-
-# Check if the session is interactive
-if [[ $- == *i* ]]; then
-    # Check if fish is actually available
-    if [ -x /usr/bin/fish ]; then
-        # Replace the running bash process with fish
-        exec fish
-    fi
-fi
-EOF
-ExecStartPost=/usr/bin/touch /var/lib/bash-config-setup.done
-RemainAfterExit=yes
-
-[Install]
-WantedBy=multi-user.target
