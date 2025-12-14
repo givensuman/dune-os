@@ -44,6 +44,9 @@ dnf5 config-manager setopt negativo17-fedora-multimedia.enabled=0 || true
 dnf5 config-manager setopt _copr_ublue-os-akmods.enabled=0 || true
 dnf5 config-manager setopt fedora-cisco-openh264.enabled=0 || true
 
+dnf5 config-manager setopt terra.enabled=0 || true
+dnf5 config-manager setopt docker-ce.enabled=0 || true
+
 dnf5 config-manager setopt rpmfusion-nonfree-nvidia-driver.enabled=0 || true
 dnf5 config-manager setopt rpmfusion-nonfree-steam.enabled=0 || true
 # Or, as fallback
@@ -54,20 +57,17 @@ done
 # To be safe...
 repos=(
   docker-ce
+  terra
   fedora-cisco-openh264
   fedora-updates
   fedora-updates-archive
   fedora-updates-testing
-  ganto-lxc4-fedora-"$(rpm -E %fedora)"
-  ganto-umoci-fedora-"$(rpm -E %fedora)"
   google-chrome
   negativo17-fedora-multimedia
   negativo17-fedora-nvidia
   nvidia-container-toolkit
   rpm-fusion-nonfree-nvidia-driver
   rpm-fusion-nonfree-steam
-  terra
-  ublue-os-staging-fedora-"$(rpm -E %fedora)"
 )
 
 for repo in "${repos[@]}"; do

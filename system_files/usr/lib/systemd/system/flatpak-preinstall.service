@@ -1,13 +1,13 @@
 [Unit]
 Description=Preinstall Flatpaks
-After=local-fs.target
 After=network-online.target
 Wants=network-online.target
 ConditionPathExists=/usr/bin/flatpak
+Documentation=man:flatpak-preinstall(1)
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/flatpak preinstall -y --ostree-verbose
+ExecStart=/usr/bin/flatpak preinstall -y
 RemainAfterExit=true
 Restart=on-failure
 RestartSec=30

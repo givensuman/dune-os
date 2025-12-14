@@ -15,6 +15,7 @@ on:
       - "**.md"
       - "**.txt"
       - ".{gitignore,editorconfig,shellcheckrc}"
+      - "assets/*"
   workflow_dispatch:
 
 concurrency:

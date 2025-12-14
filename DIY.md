@@ -21,7 +21,7 @@ During the build process the system is not yet set to read-only, so we can do an
 
 System `flatpaks` can be designated using [flatpak-preinstall](https://www.mankier.com/1/flatpak-preinstall). This is a useful way of assigning "default apps" for the OS. In the case of Dune, this is basically [GNOME applications](./system_files/usr/share/flatpak/preinstall.d/gnome.preinstall).
 
-Now we need to configure userland. You can do this via `systemd`. This will allow us to create "oneshot" services which run on first setup of the system. There are examples of this in the [`/lib/systemd`](./system_files/usr/lib/systemd/system) directory. Alternatively, and more conventionally, you can edit `/usr/share/ublue-os/justfile` to define Justfile scripts users can choose to run on their own.
+To configure userland, you can edit `/usr/share/ublue-os/justfile` to define Justfile scripts users can choose to run on their own. You can also define `systemd` services to be called with the `--user` flag over in the [/usr/lib/systemd](./system_files/usr/lib/systemd/system/) folder.
 
 And that's about it! Go nuts.
 
@@ -38,5 +38,11 @@ This list is not comprehensive and in my experience building your own OS will ta
 - Revise `systemd` services in [`/usr/lib/systemd/system/`](./system_files/usr/lib/systemd/system/), and their enabling in [`systemd.sh`](./build_files/51-systemd.sh).
 
 - Tweak the custom boot splash in [`/usr/share/plymouth/themes/spinner`](./system_files/usr/share/plymouth/themes/spinner) to your needs.
+
+## I Broke It
+
+No you didn't, it's virtually impossible to break an atomic OS. If you're locked out, your GRUB will hold the entry of the last working version to boot to. Once you're back in, run `rpm-ostree rollback` to undo broken changes.
+
+If you're not locked out but you broke something else (e.g. WiFi), run `rpm-ostree usroverlay` to create a read-write layer over your system and work from there.
 
 <img src="./assets/moebius-04.jpg" />
