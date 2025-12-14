@@ -12,7 +12,7 @@ dnf5 config-manager addrepo --from-repofile=https://github.com/terrapkg/subatomi
 dnf5 config-manager addrepo --from-repofile=https://download.docker.com/linux/fedora/docker-ce.repo
 
 dnf5 config-manager setopt terra.enabled=1
-dnf5 config-manager setup docker-ce.enabled=1
+dnf5 config-manager setopt docker-ce.enabled=1
 
 
 packages=(
