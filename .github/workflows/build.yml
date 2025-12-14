@@ -3,14 +3,14 @@ name: build-dune-os
 on:
   pull_request:
     branches:
-      - main
-      - testing
+      - stable
+      - dev
   schedule:
     - cron: "05 10 * * *" # 10:05am UTC everyday
   push:
     branches:
-      - main
-      - testing
+      - stable
+      - dev
     paths-ignore:
       - "**.md"
       - "**.txt"
@@ -57,19 +57,12 @@ jobs:
         shell: bash
         run: |
           if [[ "${{ github.event_name }}" == "pull_request" ]]; then
-              if [[ "${{ github.base_ref}}" == "main" ]]; then
-                  echo ARG_IMAGE_TAG="stable" >> $GITHUB_ENV
-              fi
+              echo ARG_IMAGE_TAG="stable" >> $GITHUB_ENV
           fi
 
           # Generate a timestamp for creating an image version history
           TIMESTAMP="$(date +%Y%m%d)"
           VARIANT="${{ env.ARG_IMAGE_TAG }}"
-
-          if [[ "${VARIANT}" == "main" ]]; then
-              VARIANT="stable"
-              echo ARG_IMAGE_TAG="stable" >> $GITHUB_ENV
-          fi
 
           COMMIT_TAGS=()
           BUILD_TAGS=()
@@ -92,7 +85,7 @@ jobs:
           done
 
           BUILD_TAGS=("${VARIANT}")
-          BUILD_TAGS+=("latest")
+          # BUILD_TAGS+=("latest")
 
           # Append matching timestamp tags to keep a version history
           for TAG in "${BUILD_TAGS[@]}"; do
@@ -101,8 +94,8 @@ jobs:
 
           BUILD_TAGS+=("${TIMESTAMP}")
 
-          if [[ "${{ github.ref_name }}" == "testing" ]]; then
-              echo "Generated the following testing tags: "
+          if [[ "${{ github.ref_name }}" == "dev" ]]; then
+              echo "Generated the following development tags: "
               for TAG in "${TESTING_TAGS[@]}"; do
                   echo "${TAG}"
               done
@@ -146,8 +139,8 @@ jobs:
             ${{ env.MY_IMAGE_NAME }}
 
           labels: |
-            io.artifacthub.package.readme-url=https://raw.githubusercontent.com/${{ github.repository }}/main/README.md
-            io.artifacthub.package.logo-url=https://raw.githubusercontent.com/${{ github.repository }}/main/assets/dune_logo.png
+            io.artifacthub.package.readme-url=https://raw.githubusercontent.com/${{ github.repository }}/stable/README.md
+            io.artifacthub.package.logo-url=https://raw.githubusercontent.com/${{ github.repository }}/stable/assets/dune_logo.png
             org.opencontainers.image.title=${{ env.MY_IMAGE_NAME }}
             org.opencontainers.image.version=${{ steps.labels.outputs.VERSION }}
 

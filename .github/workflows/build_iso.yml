@@ -5,12 +5,12 @@ on:
   workflow_call:
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref || github.run_id }}-iso
+  group: ${{ github.workflow }}
   cancel-in-progress: true
 
 env:
   image_name: "dune-os"
-  major_version: "41"
+  major_version: "43"
 
 jobs:
   build-iso:
@@ -36,8 +36,8 @@ jobs:
             TAG="pr-${{ github.event.number }}"
           fi
 
-          if [[ "${{ github.ref_name }}" == "testing" ]]; then
-            TAG="testing"
+          if [[ "${{ github.ref_name }}" == "dev" ]]; then
+            TAG="dev"
           fi
 
           echo "tag=${TAG}" >> $GITHUB_OUTPUT
