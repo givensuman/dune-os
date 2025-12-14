@@ -1,17 +1,16 @@
+<div align="center">
 <img src="./assets/readme_header.png" />
 
-<div align="center">
   <img src="https://img.shields.io/github/actions/workflow/status/givensuman/dune-os/build.yml?labelColor=purple" />
   <img src="https://img.shields.io/github/actions/workflow/status/givensuman/dune-os/build_iso.yml?label=build%20iso&labelColor=blue" />
   <img src="https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/dune-os" />
-
 </div>
 
 ## About
 
 This is a custom Linux build designed around Fedora's [Atomic Desktops](https://fedoraproject.org/atomic-desktops/), as a community-driven adaptation of the [Universal Blue](https://universal-blue.org/) project. These systems are immutable by nature, which means users are actually gated from directly modifying the system, providing an incredibly secure form of interacting with the Linux platform.
 
-This is the OS I use daily on a Framework 13 laptop. It features the [COSMIC desktop environment](https://system76.com/cosmic/), [Homebrew](https://brew.sh/) for package management, and anything you could want for containerized development. It's unopinionated by design, other than preferring [Ghostty](https://ghostty.org/) for the terminal,  and [Catppuccin](https://catppuccin.com/) for the system theme.
+This is the OS I use daily on a Framework 13 laptop. It features the [COSMIC desktop environment](https://system76.com/cosmic/), [Homebrew](https://brew.sh/) for package management, and anything you could want for containerized development. It's unopinionated by design, other than preferring [Ghostty](https://ghostty.org/) for the terminal, and [Catppuccin](https://catppuccin.com/) for the system theme.
 
 If you'd like to use this yourself, please feel free! If you'd like to build your own, consult the [DIY](./DIY.md) document.
 
@@ -37,7 +36,7 @@ sudo bootc switch --enforce-container-sigpolicy ghcr.io/givensuman/dune-os:stabl
 
 Dune is developed on and builds two branches: `main` and `dev`. `ghcr.io/givensuman/dune-os:stable` points to `main` builds, whereas the `dev` branch is the one I'm working off of and maybe partially broken at any given time.
 
-![](./assets/screenshot.png)
+![Dune OS screenshot](./assets/screenshot.png)
 _Default configuration with some additional apps and the Fish shell (see: github.com/givensuman/dune-configs)_
 
 ## Post-Install
@@ -121,6 +120,8 @@ Interesting projects I stole bits and pieces from:
 
 - [reyemxela/pulsar](https://github.com/reyemxela/pulsar)
 
-<hr />
+---
 
-<img src="./assets/readme_footer.png" />
+<div align="center">
+  <img src="./assets/readme_footer.png" />
+</div>
