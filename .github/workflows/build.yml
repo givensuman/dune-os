@@ -3,13 +3,13 @@ name: build
 on:
   pull_request:
     branches:
-      - main
+      - stable
       - dev
   schedule:
     - cron: "05 10 * * *" # 10:05am UTC everyday
   push:
     branches:
-      - main
+      - stable
       - dev
     paths-ignore:
       - "**.md"
@@ -58,24 +58,12 @@ jobs:
         shell: bash
         run: |
           if [[ "${{ github.event_name }}" == "pull_request" ]]; then
-              if [[ "${{ github.base_ref }}" == "main" ]]; then
-                  echo ARG_IMAGE_TAG="stable" >> $GITHUB_ENV
-              elif [[ "${{ github.base_ref }}" == "dev" ]]; then
-                  echo ARG_IMAGE_TAG="dev" >> $GITHUB_ENV
-              fi
+              echo ARG_IMAGE_TAG="stable" >> $GITHUB_ENV
           fi
 
           # Generate a timestamp for creating an image version history
           TIMESTAMP="$(date +%Y%m%d)"
           VARIANT="${{ env.ARG_IMAGE_TAG }}"
-
-          if [[ "${VARIANT}" == "main" ]]; then
-              VARIANT="stable"
-              echo ARG_IMAGE_TAG="stable" >> $GITHUB_ENV
-          elif [[ "${VARIANT}" == "dev" ]]; then
-              VARIANT="dev"
-              echo ARG_IMAGE_TAG="dev" >> $GITHUB_ENV
-          fi
 
           COMMIT_TAGS=()
           BUILD_TAGS=()
