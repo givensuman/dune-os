@@ -7,10 +7,6 @@ set -ouex pipefail
 dnf5 -y copr enable ublue-os/packages
 dnf5 -y copr enable ublue-os/staging
 
-dnf5 swap -y \
-    --repo=copr:copr.fedorainfracloud.org:ublue-os:staging \
-    fwupd fwupd
-
 dnf5 -y install ublue-brew
 dnf5 -y install ublue-os-media-automount-udev
 
@@ -24,11 +20,10 @@ curl -Lo /usr/share/bash-prexec \
 }
 
 if systemctl cat -- uupd.timer &>/dev/null; then
-  systemctl --global enable uupd.timer || true
+  systemctl enable uupd.timer || true
 else
-  systemctl --global enable rpm-ostreed-automatic.timer || true
-  systemctl --global enable flatpak-system-update.timer || true
-  systemctl --global enable flatpak-user-update.timer || true
+  systemctl enable rpm-ostreed-automatic.timer || true
+  systemctl enable flatpak-system-update.timer || true
 fi
 
 # Move directories from /var/opt to /usr/lib/opt

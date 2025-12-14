@@ -57,14 +57,14 @@ else
 fi
 
 if rpm -q docker-ce >/dev/null; then
-  systemctl --global enable containerd.service || true
-  systemctl --global enable docker.service || true
+  systemctl enable containerd.service || true
+  systemctl enable docker.service || true
 else
   echo "[DEBUG] docker-ce package missing"
 fi
 
 if rpm -q libvirt >/dev/null; then
-  systemctl --global enable libvirtd.service
+  systemctl enable libvirtd.service || true
 else
   echo "[DEBUG] libvirtd package missing"
 fi
