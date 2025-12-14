@@ -1,8 +1,8 @@
 [Unit]
-Description=Setup Homebrew
-After=network-online.target
+Description=Initial setup for Brew
 Wants=network-online.target
-ConditionPathExists=!/etc/.linuxbrew
+After=network-online.target
+ConditionPathExists=!/var/lib/brew-setup.done
 ConditionPathExists=!/var/home/linuxbrew/.linuxbrew
 
 [Service]
@@ -13,6 +13,7 @@ ExecStart=/usr/bin/cp -R -n /tmp/homebrew/home/linuxbrew/.linuxbrew /var/home/li
 ExecStart=/usr/bin/chown -R 1000:1000 /var/home/linuxbrew
 ExecStart=/usr/bin/rm -rf /tmp/homebrew
 ExecStart=/usr/bin/touch /etc/.linuxbrew
+ExecStartPost=/usr/bin/touch /var/lib/brew-setup.done
 
 [Install]
 WantedBy=default.target multi-user.target

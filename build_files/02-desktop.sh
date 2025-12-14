@@ -8,11 +8,12 @@ set -ouex pipefail
 dnf5 -y swap @gnome-desktop @cosmic-desktop
 
 packages=(
+  ghostty
+  rsms-inter-fonts
+  hack-nerd-fonts
+
   gdisk
   gnome-disk-utility
-  gnome-keyring
-  gnome-keyring-pam
-  plymouth-system-theme
 )
 
 dnf5 -y install "${packages[@]}" || {
@@ -20,11 +21,9 @@ dnf5 -y install "${packages[@]}" || {
   exit 1
 }
 
-systemctl disable gdm || true
-systemctl enable cosmic-greeter
-
-# Load system fonts
-fc-cache -f /usr/share/fonts/hack
-fc-cache -f /usr/share/fonts/inter
+if systemctl cat -- gdm.service &>/dev/null; then
+  systemctl disable gdm.service || true
+fi
+systemctl enable cosmic-greeter.service
 
 echo "::endgroup::"

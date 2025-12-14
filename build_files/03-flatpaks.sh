@@ -14,7 +14,11 @@ flatpak remote-add --system --if-not-exists cosmic https://apt.pop-os.org/cosmic
 dnf5 -y install ublue-os-flatpak
 
 # Prefer firefox flatpak
-dnf5 -y remove firefox
-dnf5 -y remove firefox-langpacks
+if rpm -q firefox >/dev/null; then
+  dnf5 -y remove firefox
+fi
+if rpm -q firefox-langpacks >/dev/null; then
+  dnf5 -y remove firefox-langpacks
+fi
 
 echo "::endgroup::"

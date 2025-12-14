@@ -11,9 +11,8 @@ dnf5 -y install dnf-plugins-core
 dnf5 config-manager addrepo --from-repofile=https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo
 dnf5 config-manager addrepo --from-repofile=https://download.docker.com/linux/fedora/docker-ce.repo
 
-dnf5 config-manager setopt terra.enabled=1
-dnf5 config-manager setup docker-ce.enabled=1
-
+dnf5 config-manager setopt terra.enabled=1 || true
+dnf5 config-manager setopt docker-ce.enabled=1 || true
 
 packages=(
   # System packages
@@ -29,12 +28,7 @@ packages=(
   wayland-protocols-devel
   util-linux
 
-  # Opinionated additions
-  fish
-  ghostty
-  mise
-
-  # Container/Atomic packages
+  # Container/Atomic utilities
   docker-buildx-plugin
   docker-ce
   docker-ce-cli
@@ -57,20 +51,22 @@ dnf5 -y install "${packages[@]}" || {
 
 if rpm -q iwd >/dev/null; then
   systemctl enable iwd.service
+else
+  echo "[DEBUG] iwd package missing"
+  rm -rf /etc/NetworkManager/conf.d/iwd.conf
 fi
 
 if rpm -q docker-ce >/dev/null; then
-  systemctl enable docker.socket
-  systemctl enable containerd.service
-  systemctl enable docker.service
+  systemctl enable containerd.service || true
+  systemctl enable docker.service || true
+else
+  echo "[DEBUG] docker-ce package missing"
 fi
 
 if rpm -q libvirt >/dev/null; then
-  systemctl enable libvirtd.service
+  systemctl enable libvirtd.service || true
+else
+  echo "[DEBUG] libvirtd package missing"
 fi
-
-# Disable additional repos
-dnf5 config-manager setopt terra.enabled=0
-dnf5 config-manager setup docker-ce.enabled=0
 
 echo "::endgroup::"
