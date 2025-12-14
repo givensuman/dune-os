@@ -1,19 +1,20 @@
 ---
-name: build-dune-os
+name: build
 on:
   pull_request:
     branches:
-      - stable
+      - main
       - dev
   schedule:
     - cron: "05 10 * * *" # 10:05am UTC everyday
   push:
     branches:
-      - stable
+      - main
       - dev
     paths-ignore:
       - "**.md"
       - "**.txt"
+      - ".{gitignore,editorconfig,shellcheckrc}"
   workflow_dispatch:
 
 concurrency:
@@ -57,12 +58,24 @@ jobs:
         shell: bash
         run: |
           if [[ "${{ github.event_name }}" == "pull_request" ]]; then
-              echo ARG_IMAGE_TAG="stable" >> $GITHUB_ENV
+              if [[ "${{ github.base_ref }}" == "main" ]]; then
+                  echo ARG_IMAGE_TAG="stable" >> $GITHUB_ENV
+              elif [[ "${{ github.base_ref }}" == "dev" ]]; then
+                  echo ARG_IMAGE_TAG="dev" >> $GITHUB_ENV
+              fi
           fi
 
           # Generate a timestamp for creating an image version history
           TIMESTAMP="$(date +%Y%m%d)"
           VARIANT="${{ env.ARG_IMAGE_TAG }}"
+
+          if [[ "${VARIANT}" == "main" ]]; then
+              VARIANT="stable"
+              echo ARG_IMAGE_TAG="stable" >> $GITHUB_ENV
+          elif [[ "${VARIANT}" == "dev" ]]; then
+              VARIANT="dev"
+              echo ARG_IMAGE_TAG="dev" >> $GITHUB_ENV
+          fi
 
           COMMIT_TAGS=()
           BUILD_TAGS=()
@@ -200,10 +213,3 @@ jobs:
           # Clean up buildah/podman images and containers
           podman system prune -f
           buildah prune -f
-
-  build_iso:
-    name: build iso
-    needs: [push-ghcr]
-    if: ${{ github.event_name == 'pull_request' && endsWith(github.event.pull_request.title, '[ISO]') || github.ref_name == 'testing' }}
-    uses: ./.github/workflows/build_iso.yml
-    secrets: inherit
