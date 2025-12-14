@@ -24,7 +24,7 @@ curl -Lo /usr/share/bash-prexec \
 }
 
 if systemctl cat -- uupd.timer &>/dev/null; then
-  systemctl --global enable uupd.timer
+  systemctl --global enable uupd.timer || true
 else
   systemctl --global enable rpm-ostreed-automatic.timer || true
   systemctl --global enable flatpak-system-update.timer || true

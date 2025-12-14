@@ -56,6 +56,8 @@ dnf5 -y install "${packages[@]}" || {
 
 if rpm -q iwd >/dev/null; then
   systemctl enable iwd.service
+else
+  rm -rf /etc/NetworkManager/conf.d/iwd.conf
 fi
 
 if rpm -q docker-ce >/dev/null; then

@@ -34,6 +34,15 @@ fi
 if [ -d "/var/lib/flatpak/exports/bin" ]; then
     export PATH="$PATH:/var/lib/flatpak/exports/bin"
 fi
+
+# Check if the session is interactive
+if [[ $- == *i* ]]; then
+    # Check if fish is actually available
+    if [ -x /usr/bin/fish ]; then
+        # Replace the running bash process with fish
+        exec fish
+    fi
+fi
 EOF
 ExecStartPost=/usr/bin/touch /var/lib/bash-config-setup.done
 RemainAfterExit=yes
