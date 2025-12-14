@@ -35,7 +35,7 @@ Alternatively, and preferably for most users, you can rebase from any Fedora Ato
 sudo bootc switch --enforce-container-sigpolicy ghcr.io/givensuman/dune-os:stable
 ```
 
-Dune is developed on and builds two branches: `stable` and `dev`. `ghcr.io/givensuman/dune-os:stable` points to stable releases, whereas the `dev` branch is the one I'm working off of and mayb be partially broken at any given time. Unless you're looking for that, stick with `stable`. 
+Dune is developed on and builds two branches: `main` and `dev`. `ghcr.io/givensuman/dune-os:stable` points to `main` builds, whereas the `dev` branch is the one I'm working off of and maybe partially broken at any given time.
 
 ![](./assets/screenshot.png)
 _Default configuration_
@@ -115,7 +115,7 @@ Bulk of CI/CD workflows:
 Interesting projects I stole bits and pieces from:
 
 - [astrovm/amyos](https://github.com/astrovm/amyos)
-  
+
 - [m2Giles/m2os](https://github.com/m2Giles/m2os)
 
 - [Venefilyn/veneos](https://github.com/Venefilyn/veneos)
