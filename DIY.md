@@ -39,4 +39,10 @@ This list is not comprehensive and in my experience building your own OS will ta
 
 - Tweak the custom boot splash in [`/usr/share/plymouth/themes/spinner`](./system_files/usr/share/plymouth/themes/spinner) to your needs.
 
+## I Broke It
+
+No you didn't, it's virtually impossible to break an atomic OS. If you're locked out, your GRUB will hold the entry of the last working version to boot to. Once you're back in, run `rpm-ostree rollback` to undo broken changes.
+
+If you're not locked out but you broke something else (e.g. WiFi), run `rpm-ostree usroverlay` to create a read-write layer over your system and work from there.
+
 <img src="./assets/moebius-04.jpg" />
