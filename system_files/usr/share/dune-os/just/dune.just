@@ -10,3 +10,27 @@ dune-clean:
     rpm-ostree cleanup -bm
     sudo docker system prune -af
     sudo podman system prune -af
+
+# Forcibly rebuild toolbox container
+dune-rebuild-toolbox:
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    while true; do
+      read -p "This will delete and reinstall your toolbox. Are you sure? (y/N): " choice
+      case "$choice" in
+          y|Y ) break ;;
+          * ) echo "Okey dokey! No changes made." && exit 0 ;;
+      esac
+    done
+
+    # see /usr/libexec/toolbox-mount
+    CONFIG_FILE="${HOME}/.config/dune-os/toolbox.ini"
+    if [ -f "$CONFIG_FILE" ]; then
+      /usr/bin/distrobox assemble create -v --replace --file "$CONFIG_FILE"
+    elif [ -f /usr/share/dune-os/toolbox.ini ]; then
+      /usr/bin/distrobox assemble create -v --replace --file /usr/share/dune-os/toolbox.ini
+    else
+      echo "Can't find toolbox.ini configuration file..."
+      exit 1
+    fi

@@ -35,10 +35,10 @@ mkdir -p /tmp
 mkdir -p /var/tmp
 chmod -R 1777 /var/tmp
 
-# Disable COPRs and RPM Fusion Repos
-dnf5 -y copr disable ublue-os/staging
-dnf5 -y copr disable ublue-os/packages
-dnf5 -y copr disable phracek/PyCharm
+# Disable COPRs and non-essential repos
+dnf5 -y copr disable ublue-os/staging || true
+dnf5 -y copr disable ublue-os/packages || true
+dnf5 -y copr disable phracek/PyCharm || true
 
 dnf5 config-manager setopt negativo17-fedora-multimedia.enabled=0 || true
 dnf5 config-manager setopt _copr_ublue-os-akmods.enabled=0 || true
