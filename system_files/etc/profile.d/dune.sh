@@ -11,15 +11,16 @@ if [[ "$TERM" == "xterm-ghostty" ]]; then
     fi
 fi
 
-# brew
-if [ -d "/home/linuxbrew/.linuxbrew/bin" ]; then
-    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-elif [ -d "$HOME/.linuxbrew/bin" ]; then
-    # Fallback for single-user installation in home directory
-    eval "$($HOME/.linuxbrew/bin/brew shellenv)"
-fi
-
 # Enable Flatpak exports
 if [ -d "/var/lib/flatpak/exports/bin" ]; then
     export PATH="$PATH:/var/lib/flatpak/exports/bin"
 fi
+
+# Whether or not you're inside a container
+function inside {
+  if [[ -v $DISTROBOX_ENTER_PATH ]]; then
+    return 0
+  else
+    return 1
+  fi
+}

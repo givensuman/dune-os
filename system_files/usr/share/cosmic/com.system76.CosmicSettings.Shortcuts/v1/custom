@@ -4,6 +4,6 @@
             Super,
         ],
         key: "Return",
-        description: Some("ghostty"),
-    ): Spawn("ghostty"),
+        description: Some("ghostty toolbox"),
+    ): Spawn("/usr/libexec/toolbox-launch"),
 }
