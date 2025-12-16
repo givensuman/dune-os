@@ -1,6 +1,8 @@
 This document aims to guide you through setting up your own spin of a Universal Blue OS. You can also consult Universal Blue's [image template](https://github.com/ublue-os/image-template) which does a pretty good job documenting this stuff.
 
-<img src="./assets/moebius-03.jpg" />
+<div align="center">
+  <img src="./assets/moebius-03.jpg" />
+</div>
 
 ## Repository Setup
 
@@ -8,7 +10,7 @@ First things first, go ahead and [fork](https://github.com/givensuman/dune-os/fo
 
 Enable GitHub Actions in your repository settings, and create a variable `SIGNING_SECRET` which will hold the private end of your security key.
 
-![](./assets/settings_dashboard.png)
+![Settings dashboard](./assets/settings_dashboard.png)
 _GitHub repository settings dashboard_
 
 To obtain a key, use the [cosign](https://github.com/sigstore/cosign) tool. `cosign generate-key-pair` will dump a `cosign.pub` and `cosign.key` file; commit `cosign.pub` into git history and the contents of `cosign.key` go into the `SIGNING_SECRET` variable. Don't use a password during key generation or the CI won't be able to decrypt the key. See [this doc](https://github.blog/security/supply-chain-security/safeguard-container-signing-capability-actions/) for more information.
@@ -45,4 +47,6 @@ No you didn't, it's virtually impossible to break an atomic OS. If you're locked
 
 If you're not locked out but you broke something else (e.g. WiFi), run `rpm-ostree usroverlay` to create a read-write layer over your system and work from there.
 
-<img src="./assets/moebius-04.jpg" />
+<div align="center">
+  <img src="./assets/moebius-04.jpg" />
+</div>
