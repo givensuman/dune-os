@@ -37,7 +37,7 @@ This list is not comprehensive and in my experience building your own OS will ta
 
 - Revise `systemd` services in [`/usr/lib/systemd/system/`](./system_files/usr/lib/systemd/system/), and their enabling in [`systemd.sh`](./build_files/51-systemd.sh).
 
-- Tweak the custom boot splash in [`/usr/share/plymouth/themes/spinner`](./system_files/usr/share/plymouth/themes/spinner) to your needs.
+- Place a file called "watermark.png" in `system_files/usr/share/plymouth/themes/spinner` to customize the boot splash image.
 
 ## I Broke It
 
