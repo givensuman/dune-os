@@ -63,7 +63,7 @@ Additional system utilities are run through Just, and can be seen by running `uj
 
 If on the off chance you're not a developer, you're all set. This system is in a lot of ways like a Chromebook, except you get to pick hardware that isn't e-waste.
 
-For the rest of us, development will be happening inside containers. I've opted to replace Fedora's `toolbox` with a `distrobox` wrapper of the same name. Our Ghostty terminal emulator launches into this, making the transition virtually invisible. By default, this is an Ubuntu container pre-configured with [nala](https://github.com/volitank/nala), which I find to be a pretty good development setup, but it can be whatever you want! Edit or create `~/.config/dune-os/toolbox.ini` to define a [Distrobox assemble](https://distrobox.it/usage/distrobox-assemble/) configuration. Here is an example extending the base config:
+For the rest of us, development will be happening inside containers. I've opted to replace Fedora's [Toolbx](https://github.com/containers/toolbox) with a `distrobox` wrapper. Our Ghostty terminal emulator launches into this, making the transition virtually invisible. By default, this is an Ubuntu container pre-configured with [nala](https://github.com/volitank/nala), which I find to be a pretty good development setup, but it can be whatever you want! Edit or create `~/.config/dune-os/toolbox.ini` to define a [Distrobox assemble](https://distrobox.it/usage/distrobox-assemble/) configuration. Here is an example extending the base config:
 
 ```ini
 [toolbox] # You can change this name if you like
@@ -74,12 +74,18 @@ replace=false # If set to true, this will be re-built every startup.
               # Default is false, and you should probably keep it that way.
 ```
 
+Note this behavior is opt-in. To do so, run
+
+```bash
+systemd enable --user toolbox.service
+```
+
 Your `toolbox.ini` is built via `systemd` on startup. You can actually define an arbitrary amount of containers to be built here, but the first one specified as an entry is the one you will launch into.
 
 Here is a slightly more advanced template setup using Arch Linux and the [yay](https://github.com/Jguer/yay) AUR utility. Place this in `~/.config/dune-os/toolbox.ini`:
 
 ```ini
-[toolbox]
+[arch, btw]
 image=arch:latest
 additional_packages="git base-devel"
 # yay can't be run as root, so we have to do a workaround
