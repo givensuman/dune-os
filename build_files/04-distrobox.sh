@@ -4,7 +4,6 @@ echo "::group:: ===$(basename "$0")==="
 
 set -eoux pipefail
 
-dnf5 -y remove toolbox
 mkdir -p /etc/distrobox/
 
 tee -a /etc/distrobox/distrobox.ini << EOF
