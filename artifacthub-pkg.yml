@@ -8,7 +8,7 @@
 name: dune-os
 displayName: Dune OS
 description: custom atomic linux build
-logoURL: https://raw.githubusercontent.com/givensuman/dune-os/stable/assets/artifacthub.png
+logoURL: https://raw.githubusercontent.com/givensuman/dune-os/main/assets/artifacthub.png
 license: Apache-2.0
 homeURL: https://github.com/givensuman/dune-os
 maintainers:
