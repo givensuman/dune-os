@@ -24,13 +24,4 @@ dune-rebuild-toolbox:
       esac
     done
 
-    # see /usr/libexec/toolbox-mount
-    CONFIG_FILE="${HOME}/.config/dune-os/toolbox.ini"
-    if [ -f "$CONFIG_FILE" ]; then
-      /usr/bin/distrobox assemble create -v --replace --file "$CONFIG_FILE"
-    elif [ -f /usr/share/dune-os/toolbox.ini ]; then
-      /usr/bin/distrobox assemble create -v --replace --file /usr/share/dune-os/toolbox.ini
-    else
-      echo "Can't find toolbox.ini configuration file..."
-      exit 1
-    fi
+    /usr/libexec/toolbox-mount --replace
