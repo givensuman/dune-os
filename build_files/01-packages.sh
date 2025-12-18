@@ -28,6 +28,7 @@ packages=(
   vlc-plugin-ffmpeg
   vlc-plugin-pause-click
   wayland-protocols-devel
+  wl-clipboard
   util-linux
 
   # Container/Atomic utilities
