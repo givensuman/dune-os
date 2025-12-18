@@ -16,12 +16,37 @@ dune-rebuild-toolbox:
     #!/usr/bin/env bash
     set -euo pipefail
 
-    while true; do
-      read -p "This will delete and reinstall your toolbox. Are you sure? (y/N): " choice
-      case "$choice" in
-          y|Y ) break ;;
-          * ) echo "Okey dokey! No changes made." && exit 0 ;;
-      esac
+    # Get a value from a file with a given key in the [general] section
+    # `get_value file key`
+    get_value() {
+      local file=$1
+      local key=$2
+
+      sed -n '/^\[general\]/,/^\[/p' "$file" | grep "^$key =" | sed 's/.*= //' | tr -d '"'
+    }
+
+    container_name="fedora-toolbox-$(rpm -E %fedora 2>/dev/null || echo "39")"
+
+    config_files=("/etc/containers/toolbox.conf" "$HOME/.config/containers/toolbox.conf")
+    for config in "${config_files[@]}"; do
+      if [ -f "$config" ]; then
+        distro=$(get_value "$config" "distro")
+        release=$(get_value "$config" "release")
+        image=$(get_value "$config" "image")
+
+        if [ -n "$image" ]; then
+          # Extract container name from image, e.g., registry.fedoraproject.org/fedora-toolbox:36 -> fedora-toolbox-36
+          container_name=$(echo "$image" | sed 's|.*/||' | sed 's|:|-|')
+
+        elif [ -n "$distro" ] && [ -n "$release" ]; then
+          container_name="${distro}-toolbox-${release}"
+
+        elif [ -n "$distro" ]; then
+          container_name="${distro}-toolbox"
+
+        fi
+      fi
     done
 
-    /usr/libexec/toolbox-mount --replace
+    toolbox rm -f "$container_name"
+    toolbox create -y
