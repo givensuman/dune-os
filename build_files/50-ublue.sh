@@ -8,10 +8,7 @@ dnf5 -y copr enable ublue-os/packages
 dnf5 -y copr enable ublue-os/staging
 
 dnf5 -y install ublue-os-media-automount-udev
-dnf5 -y install ublue-os-update-services
 dnf5 -y install ublue-brew
-
-dnf5 -y remove toolbox
 
 systemctl --global enable podman.socket || true
 systemctl --global enable podman-auto-update.timer || true
