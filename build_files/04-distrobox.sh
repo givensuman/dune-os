@@ -6,26 +6,24 @@ set -eoux pipefail
 
 mkdir -p /etc/distrobox/
 
-tee -a /etc/distrobox/distrobox.ini << EOF
+images=(
+  arch
+  debian
+  fedora
+  ubuntu
+)
 
-[fedora-distrobox]
-image=ghcr.io/ublue-os/fedora-toolbox:latest
+for image in ${images[@]}; do
+  tee -a /etc/distrobox/distrobox.ini << EOF
+["${image}-distrobox"]
+image="ghcr.io/ublue-os/${image}-toolbox:latest"
 nvidia=true
 entry=false
-# volume="/home/linuxbrew/:/home/linuxbrew:rslave"
-
+volume="/home/linuxbrew/:/home/linuxbrew:rslave"
 EOF
+done
 
-tee -a /etc/distrobox/distrobox.ini << EOF
-[ubuntu-distrobox]
-image=ghcr.io/ublue-os/ubuntu-toolbox:latest
-nvidia=true
-entry=false
-# volume="/home/linuxbrew/:/home/linuxbrew:rslave"
-
-EOF
-
-tee /etc/distrobox/distrobox.conf << EOF
+tee /etc/distrobox/distrobox.conf <<EOF
 container_always_pull=false
 container_generate_entry=false
 container_manager="podman"
