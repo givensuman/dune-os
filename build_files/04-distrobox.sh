@@ -13,7 +13,7 @@ images=(
   ubuntu
 )
 
-for image in ${images[@]}; do
+for image in "${images[@]}"; do
   tee -a /etc/distrobox/distrobox.ini << EOF
 ["${image}-distrobox"]
 image="ghcr.io/ublue-os/${image}-toolbox:latest"
