@@ -1,6 +1,6 @@
 <div align="center">
   <img src="./assets/readme_header.png" />
-  <!-- -->
+
   <img src="https://img.shields.io/github/actions/workflow/status/givensuman/dune-os/build.yml?labelColor=purple" />
   <img src="https://img.shields.io/github/actions/workflow/status/givensuman/dune-os/build_iso.yml?label=build%20iso&labelColor=blue" />
   <img src="https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/dune-os" />
@@ -10,13 +10,11 @@
 
 This is a custom Linux build designed around Fedora's [Atomic Desktops](https://fedoraproject.org/atomic-desktops/), as a community-driven adaptation of the [Universal Blue](https://universal-blue.org/) project. These systems are immutable by nature, which means users are actually gated from directly modifying the system, providing an incredibly secure form of interacting with the Linux platform.
 
-This is the OS I use daily on a Framework 13 laptop. It features the [COSMIC desktop environment](https://system76.com/cosmic/) with a focus on containerized development. It's unopinionated by design, other than preferring [Ghostty](https://ghostty.org/) over `cosmic-term` for the terminal, and [Catppuccin](https://catppuccin.com/) for the system theme.
+This is the OS I use daily on a Framework 13 laptop. It features the [COSMIC desktop environment](https://system76.com/cosmic/), [Homebrew](https://brew.sh/) for package management, and anything you could want for containerized development. It's unopinionated by design, other than preferring [Ghostty](https://ghostty.org/) for the terminal, and [Catppuccin](https://catppuccin.com/) for the system theme.
 
 If you'd like to use this yourself, please feel free! If you'd like to build your own, consult the [DIY](./DIY.md) document.
 
-<div align="center">
-  <img src="./assets/moebius-01.jpg" />
-</div>
+<img src="./assets/moebius-01.jpg" />
 
 ## Installation
 
@@ -43,7 +41,7 @@ _Default configuration with some additional apps and the Fish shell (see: github
 
 ## Usage
 
-You can layer whatever core packages you like on top of this build. You might want your favorite shell:
+You can layer whatever core packages you like on top of this build. I recommend installing your favorite shell:
 
 ```bash
 rpm-ostree install --apply-live fish
@@ -57,15 +55,20 @@ sudo groupadd docker
 sudo usermod -aG docker $USER
 ```
 
+And then get the rest of your software through the included app store or with `brew`:
+
+```bash
+brew install \
+bat \
+eza \
+fd \
+ripgrep \
+zoxide
+```
+
 Additional system utilities are run through Just, and can be seen by running `ujust`.
 
-## Usage
-
-If on the off chance you're not a developer, you're all set. This system is in a lot of ways like a Chromebook, except you get to pick your own hardware that isn't e-waste. For the rest of us, development will be happening inside mutable containers. We use a Ghostty wrapper to launch into Fedora's [Toolbx](https://github.com/containers/toolbox) where we can use a traditional Fedora desktop for all intents and purposes.
-
-<div align="center">
-  <img src="./assets/moebius-02.jpg" />
-</div>
+<img src="./assets/moebius-02.jpg" />
 
 ## Secure Boot
 
@@ -101,6 +104,8 @@ Intitial interest and some `systemd` patches:
 
 - [ublue-os/bluefin](github.com/ublue-os/bluefin)
 
+- [BillyAddlers/stellarite](https://github.com/BillyAddlers/stellarite)
+
 Bulk of CI/CD workflows:
 
 - [noelmiller/isengard](https://github.com/noelmiller/isengard)
@@ -110,6 +115,10 @@ Interesting projects I stole bits and pieces from:
 - [astrovm/amyos](https://github.com/astrovm/amyos)
 
 - [m2Giles/m2os](https://github.com/m2Giles/m2os)
+
+- [Venefilyn/veneos](https://github.com/Venefilyn/veneos)
+
+- [reyemxela/pulsar](https://github.com/reyemxela/pulsar)
 
 ---
 
