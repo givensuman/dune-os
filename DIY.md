@@ -11,7 +11,7 @@ Enable GitHub Actions in your repository settings, and create a variable `SIGNIN
 ![](./assets/settings_dashboard.png)
 _GitHub repository settings dashboard_
 
-To obtain a key, use the [cosign](https://github.com/sigstore/cosign) tool. `cosign generate-key-pair` will dump a `cosign.pub` and `cosign.key` file; commit `cosign.pub` into git history and the contents of `cosign.key` go into the `SIGNING_SECRET` variable.
+To obtain a key, use the [cosign](https://github.com/sigstore/cosign) tool. `cosign generate-key-pair` will dump a `cosign.pub` and `cosign.key` file; commit `cosign.pub` into git history and the contents of `cosign.key` go into the `SIGNING_SECRET` variable. Don't use a password during key generation or the CI won't be able to decrypt the key. See [this doc](https://github.blog/security/supply-chain-security/safeguard-container-signing-capability-actions/) for more information.
 
 ## Configuring
 
