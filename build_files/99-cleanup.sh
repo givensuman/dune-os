@@ -2,7 +2,9 @@
 
 echo "::group:: ===$(basename "$0")==="
 
-set -ouex pipefail
+set -euox pipefail
+
+shopt -s nullglob
 
 # Disable COPRs and non-essential repos
 dnf5 -y copr disable ublue-os/staging || true
@@ -20,11 +22,9 @@ dnf5 config-manager setopt rpmfusion-nonfree-nvidia-driver.enabled=0 || true
 dnf5 config-manager setopt rpmfusion-nonfree-steam.enabled=0 || true
 
 # Or, as fallback
-[[ find /etc/yum.repos.d/rpmfusion-* ]] && {
-  for repo in /etc/yum.repos.d/rpmfusion-*; do
-    sed -i 's@enabled=1@enabled=0@g' "$repo"
-  done
-}
+for repo in /etc/yum.repos.d/rpmfusion-*; do
+  sed -i 's@enabled=1@enabled=0@g' "$repo"
+done
 
 # To be safe...
 repos=(
@@ -48,11 +48,9 @@ for repo in "${repos[@]}"; do
   fi
 done
 
-[[ find /etc/yum.repos.d/_copr*.repo ]] && {
-  for repo in /etc/yum.repos.d/_copr*.repo; do
-    sed -i 's@enabled=1@enabled=0@g' "$repo"
-  done
-}
+for repo in /etc/yum.repos.d/_copr*.repo; do
+  sed -i 's@enabled=1@enabled=0@g' "$repo"
+done
 
 # Clean up temporary files and caches
 rm -rf /tmp/* || true

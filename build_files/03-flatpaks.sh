@@ -2,7 +2,7 @@
 
 echo "::group:: ===$(basename "$0")==="
 
-set -eoux pipefail
+set -euox pipefail
 
 flatpak remote-delete flathub --force || true
 flatpak remote-delete cosmic --force || true

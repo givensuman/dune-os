@@ -2,7 +2,7 @@
 
 echo "::group:: ===$(basename "$0")==="
 
-set -eoux pipefail
+set -euox pipefail
 
 systemctl enable dconf-update.service
 systemctl enable flatpak-preinstall.service

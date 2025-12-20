@@ -2,7 +2,7 @@
 
 echo "::group:: ===$(basename "$0")==="
 
-set -eoux pipefail
+set -euox pipefail
 
 mkdir -p /etc/distrobox/
 
@@ -29,5 +29,10 @@ container_generate_entry=false
 container_manager="podman"
 distrobox_sudo_program="sudo --askpass"
 EOF
+
+# Install dune-toolbox
+git clone https://github.com/givensuman/dune-toolbox /tmp
+chmod +x /tmp/dune-toolbox/scripts/install.sh
+/tmp/dune-toolbox/scripts/install.sh
 
 echo "::endgroup::"

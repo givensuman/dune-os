@@ -1,7 +1,7 @@
 # Clean up old packages and Docker/Podman images and volumes
 dune-clean:
     #!/usr/bin/env bash
-    set -euo pipefail
+    set -euox pipefail
 
     echo "Cleaning up system..."
     docker system prune -af
@@ -14,7 +14,7 @@ dune-clean:
 # Forcibly rebuild toolbox container
 dune-rebuild-toolbox:
     #!/usr/bin/env bash
-    set -euo pipefail
+    set -euox pipefail
 
     # Get a value from a file with a given key in the [general] section
     # `get_value file key`

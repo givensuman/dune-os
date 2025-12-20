@@ -2,7 +2,7 @@
 
 echo "::group:: ===$(basename "$0")==="
 
-set -ouex pipefail
+set -euox pipefail
 
 dnf5 -y copr enable ublue-os/packages
 dnf5 -y copr enable ublue-os/staging

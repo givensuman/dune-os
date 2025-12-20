@@ -2,7 +2,7 @@
 
 echo "::group:: ===$(basename "$0")==="
 
-set -eoux pipefail
+set -euox pipefail
 
 mkdir -p /tmp/mediatek-firmware
 curl --retry 3 -Lo \
