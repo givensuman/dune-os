@@ -35,8 +35,6 @@ This list is not comprehensive and in my experience building your own OS will ta
 
 - Revise [`packages.sh`](./build_files/01-packages.sh) and [`desktop.sh`](./build_files/02-desktop.sh) to your liking. Note any changes you make may have cascading results; e.g. removing the `iwd` package from being installed will break WiFi unless you also remove [`NetworkManager/conf.d/iwd.conf`](./system_files/etc/NetworkManager/conf.d/iwd.conf).
 
-- Look through [`/usr/share/`](./system_files/usr/share/), in particular the `dune-os` and `flatpak` subdirectories.
-
 - Revise `systemd` services in [`/usr/lib/systemd/system/`](./system_files/usr/lib/systemd/system/), and their enabling in [`systemd.sh`](./build_files/51-systemd.sh).
 
 - Place a file called "watermark.png" in `system_files/usr/share/plymouth/themes/spinner` to customize the boot splash image.
