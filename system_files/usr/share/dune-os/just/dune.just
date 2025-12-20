@@ -14,7 +14,7 @@ dune-clean:
 # Forcibly rebuild toolbox container
 dune-rebuild-toolbox:
     #!/usr/bin/env bash
-    set -euo pipefail
+    set -euox pipefail
 
     # Get a value from a file with a given key in the [general] section
     # `get_value file key`
