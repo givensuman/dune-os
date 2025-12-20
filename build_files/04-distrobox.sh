@@ -30,8 +30,10 @@ container_manager="podman"
 distrobox_sudo_program="sudo --askpass"
 EOF
 
+dnf5 -y remove toolbox
+
 # Install dune-toolbox
-git clone https://github.com/givensuman/dune-toolbox /tmp
+git clone https://github.com/givensuman/dune-toolbox /tmp/dune-toolbox
 chmod +x /tmp/dune-toolbox/scripts/install.sh
 /tmp/dune-toolbox/scripts/install.sh
 
