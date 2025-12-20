@@ -26,9 +26,9 @@ packages=(
   vlc-plugin-bittorrent
   vlc-plugin-ffmpeg
   vlc-plugin-pause-click
-  wayland-protocols-devel
   wl-clipboard
   util-linux
+  wayland-protocols-devel
 
   # Container/Atomic utilities
   docker-buildx-plugin
