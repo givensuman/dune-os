@@ -2,7 +2,9 @@
 
 # ghostty
 if [ -n "${GHOSTTY_RESOURCES_DIR}" ]; then
-  builtin source "${GHOSTTY_RESOURCES_DIR}/shell-integration/bash/ghostty.bash"
+  if [ -f "${GHOSTTY_RESOURCES_DIR}/shell-integration/bash/ghostty.bash" ]; then
+    builtin source "${GHOSTTY_RESOURCES_DIR}/shell-integration/bash/ghostty.bash"
+  fi
 elif [ -f /usr/share/ghostty/shell-integration/bash/ghostty.bash ]; then
   builtin source /usr/share/ghostty/shell-integration/bash/ghostty.bash
 fi
@@ -17,12 +19,3 @@ fi
 if [ -d "/var/lib/flatpak/exports/bin" ]; then
   export PATH="$PATH:/var/lib/flatpak/exports/bin"
 fi
-
-# Whether or not you're inside a container
-function inside {
-  if [[ -v $DISTROBOX_ENTER_PATH ]]; then
-    return 0
-  else
-    return 1
-  fi
-}
