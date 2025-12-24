@@ -19,7 +19,6 @@ dnf5 -y install @development-tools
 packages=(
   # System packages
   git
-  iwd
   p7zip
   p7zip-plugins
   vlc
@@ -50,13 +49,6 @@ dnf5 -y install "${packages[@]}" || {
   echo "Failed to install packages"
   exit 1
 }
-
-if rpm -q iwd >/dev/null; then
-  systemctl enable iwd.service
-else
-  echo "[DEBUG] iwd package missing"
-  rm -rf /etc/NetworkManager/conf.d/iwd.conf
-fi
 
 if rpm -q docker-ce >/dev/null; then
   systemctl enable containerd.service || true
