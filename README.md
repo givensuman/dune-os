@@ -104,7 +104,7 @@ Artwork is by Jean "Moebius" Giraud.
 
 Intitial interest and some `systemd` patches:
 
-- [ublue-os/bluefin](github.com/ublue-os/bluefin)
+- [ublue-os/bluefin](https://github.com/ublue-os/bluefin)
 
 Interesting projects I stole bits and pieces from:
 
