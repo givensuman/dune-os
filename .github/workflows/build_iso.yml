@@ -1,6 +1,5 @@
 ---
-name: build-isos
-
+name: "build dune-os iso file"
 on:
   pull_request:
     branches:
@@ -29,11 +28,11 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build ISOs
-        uses: jasonn3/build-container-installer@v1.2.4
+        uses: jasonn3/build-container-installer@v1.4.0
         id: build
         with:
           arch: x86_64
-          image_name: ${{ env.image_name }}
+          image_name: ${{ env.IMAGE_NAME }}
           image_repo: ghcr.io/givensuman
           variant: "base"
           version: ${{ env.MAJOR_VERSION }}
