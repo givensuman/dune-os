@@ -39,7 +39,7 @@ Dune is developed on and builds two branches: `main` and `dev`. `ghcr.io/givensu
 ![Dune OS screenshot](./assets/screenshot.png)
 _Default configuration with some additional apps and the Fish shell (see: github.com/givensuman/dune-configs)_
 
-## Post-Install
+## Usage
 
 You can layer whatever core packages you like on top of this build. I recommend installing your favorite shell:
 
@@ -67,6 +67,8 @@ zoxide
 ```
 
 Additional system utilities are run through Just, and can be seen by running `ujust`.
+
+For development, use `distrobox create` to create a mutable, containerized OS, and `distrobox enter` to enter into it. See [givensuman/dune-toolbox](https://github.com/givensuman/dune-toolbox) for more information.
 
 <img src="./assets/moebius-02.jpg" />
 
@@ -104,21 +106,11 @@ Intitial interest and some `systemd` patches:
 
 - [ublue-os/bluefin](github.com/ublue-os/bluefin)
 
-- [BillyAddlers/stellarite](https://github.com/BillyAddlers/stellarite)
-
-Bulk of CI/CD workflows:
-
-- [noelmiller/isengard](https://github.com/noelmiller/isengard)
-
 Interesting projects I stole bits and pieces from:
 
 - [astrovm/amyos](https://github.com/astrovm/amyos)
 
 - [m2Giles/m2os](https://github.com/m2Giles/m2os)
-
-- [Venefilyn/veneos](https://github.com/Venefilyn/veneos)
-
-- [reyemxela/pulsar](https://github.com/reyemxela/pulsar)
 
 ---
 

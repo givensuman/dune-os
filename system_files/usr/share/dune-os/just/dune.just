@@ -1,7 +1,7 @@
 # Clean up old packages and Docker/Podman images and volumes
 dune-clean:
     #!/usr/bin/env bash
-    set -euo pipefail
+    set -euox pipefail
 
     echo "Cleaning up system..."
     docker system prune -af

@@ -2,6 +2,8 @@
 
 echo "::group:: ===$(basename "$0")==="
 
+set -euox pipefail
+
 trap '[[ $BASH_COMMAND != echo* ]] && [[ $BASH_COMMAND != log* ]] && echo "+ $BASH_COMMAND"' DEBUG
 
 export DRACUT_NO_XATTR=1

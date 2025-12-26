@@ -1,35 +1,33 @@
 ---
-name: build
+name: "build dune-os image"
 on:
   pull_request:
     branches:
-      - stable
-      - dev
+      - main
   schedule:
     - cron: "05 10 * * *" # 10:05am UTC everyday
   push:
     branches:
-      - stable
+      - main
       - dev
     paths-ignore:
       - "**.md"
-      - "**.txt"
       - ".{gitignore,editorconfig,shellcheckrc}"
       - "assets/*"
   workflow_dispatch:
+
+env:
+  IMAGE_NAME: "dune-os"
+  IMAGE_REGISTRY: "ghcr.io/${{ github.repository_owner }}"
+  IMAGE_BASENAME: "base"
+  IMAGE_TAG: "${{ github.ref_name }}" # Overriden in generate-tags
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
   cancel-in-progress: true
 
-env:
-  MY_IMAGE_NAME: "dune-os"
-  ARG_BASE_IMAGE_NAME: "base"
-  ARG_IMAGE_TAG: "${{ github.ref_name }}"
-  IMAGE_REGISTRY: "ghcr.io/${{ github.repository_owner }}"
-
 jobs:
-  push-ghcr:
+  build-and-push:
     name: build and push image
     runs-on: ubuntu-24.04
     continue-on-error: false
@@ -39,7 +37,7 @@ jobs:
       id-token: write
 
     steps:
-      - name: Free Disk Space (Ubuntu)
+      - name: Free Disk Space
         uses: jlumbroso/free-disk-space@v1.3.1
 
       # Checkout push-to-registry action GitHub repository
@@ -54,96 +52,57 @@ jobs:
           sudo apt-get update && sudo apt-get install -y shellcheck
           shellcheck build_files/*.sh || { echo "Shellcheck failed"; exit 1; }
 
+      # Generate additional build tags
       - name: Generate tags
         id: generate-tags
         shell: bash
         run: |
-          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
-              echo ARG_IMAGE_TAG="stable" >> $GITHUB_ENV
-          fi
+          TAGS=()
+          sha="${GITHUB_SHA::7}"
+          timestamp="$(date +%Y%m%d)"
 
-          # Generate a timestamp for creating an image version history
-          TIMESTAMP="$(date +%Y%m%d)"
-          VARIANT="${{ env.ARG_IMAGE_TAG }}"
-
-          COMMIT_TAGS=()
-          BUILD_TAGS=()
-          TESTING_TAGS=()
-
-          # Have tags for tracking builds during pull request
-          SHA_SHORT="${GITHUB_SHA::7}"
-
-          COMMIT_TAGS+=("pr-${{ github.event.number }}")
-          COMMIT_TAGS+=("${SHA_SHORT}")
-
-          # Tags for tracking builds during testing
-          TESTING_TAGS+=("${SHA_SHORT}-${VARIANT}")
-          TESTING_TAGS+=("${SHA_SHORT}")
-          TESTING_TAGS+=("${VARIANT}")
-
-          # Append matching timestamp tags to keep a version history
-          for TAG in "${TESTING_TAGS[@]}"; do
-              TESTING_TAGS+=("${TAG}-${TIMESTAMP}")
-          done
-
-          BUILD_TAGS=("${VARIANT}")
-          # BUILD_TAGS+=("latest")
-
-          # Append matching timestamp tags to keep a version history
-          for TAG in "${BUILD_TAGS[@]}"; do
-              BUILD_TAGS+=("${TAG}-${TIMESTAMP}")
-          done
-
-          BUILD_TAGS+=("${TIMESTAMP}")
-
-          if [[ "${{ github.ref_name }}" == "dev" ]]; then
-              echo "Generated the following development tags: "
-              for TAG in "${TESTING_TAGS[@]}"; do
-                  echo "${TAG}"
-              done
-
-              alias_tags=("${TESTING_TAGS[@]}")
-
-          elif [[ "${{ github.event_name }}" == "pull_request" ]]; then
-              echo "Generated the following commit tags: "
-              for TAG in "${COMMIT_TAGS[@]}"; do
-                  echo "${TAG}"
-              done
-
-              alias_tags=("${COMMIT_TAGS[@]}")
+          if [[ "${{ github.ref_name }}" == "main" ]]; then
+            tag="stable"
+          elif [[ "${{ github.ref_name }}" == "dev" ]]; then
+            tag="dev"
           else
-              alias_tags=("${BUILD_TAGS[@]}")
+            tag="unknown"
           fi
+          echo IMAGE_TAG="$tag" >> $GITHUB_ENV
 
-          echo "Generated the following build tags: "
-          for TAG in "${BUILD_TAGS[@]}"; do
-              echo "${TAG}"
+          TAGS+=("${tag}")
+          TAGS+=("${sha}")
+          TAGS+=("${sha}-${tag}")
+
+          for entry in "${TAGS[@]}"; do
+            TAGS+=("${entry}-${timestamp}")
           done
 
-          echo "alias_tags=${alias_tags[*]}" >> $GITHUB_OUTPUT
+          echo "TAGS=${TAGS[*]}" >> $GITHUB_OUTPUT
 
+      # @echo version
       - name: Get current version
         id: labels
         run: |
           # Try to get version from base image, fallback to default if access fails
-          if ver=$(skopeo inspect docker://ghcr.io/ublue-os/base:stable 2>/dev/null | jq -r '.Labels["org.opencontainers.image.version"]' 2>/dev/null); then
-            echo "VERSION=$ver" >> $GITHUB_OUTPUT
+          if version=$(skopeo inspect docker://ghcr.io/ublue-os/base:stable 2>/dev/null | jq -r '.Labels["org.opencontainers.image.version"]' 2>/dev/null); then
+            echo "VERSION=$version" >> $GITHUB_OUTPUT
           else
             echo "VERSION=unknown" >> $GITHUB_OUTPUT
           fi
 
-      # Build metadata
+      # Write metadata
       - name: Image Metadata
         uses: docker/metadata-action@v5
         id: meta
         with:
           images: |
-            ${{ env.MY_IMAGE_NAME }}
+            ${{ env.IMAGE_NAME }}
 
           labels: |
-            io.artifacthub.package.readme-url=https://raw.githubusercontent.com/${{ github.repository }}/stable/README.md
-            io.artifacthub.package.logo-url=https://raw.githubusercontent.com/${{ github.repository }}/stable/assets/dune_logo.png
-            org.opencontainers.image.title=${{ env.MY_IMAGE_NAME }}
+            io.artifacthub.package.readme-url=https://raw.githubusercontent.com/${{ github.repository }}/main/README.md
+            io.artifacthub.package.logo-url=https://raw.githubusercontent.com/${{ github.repository }}/main/assets/artifacthub.png
+            org.opencontainers.image.title=${{ env.IMAGE_NAME }}
             org.opencontainers.image.version=${{ steps.labels.outputs.VERSION }}
 
       # Build image using Buildah action
@@ -153,12 +112,12 @@ jobs:
         with:
           containerfiles: |
             ./Containerfile
-          image: ${{ env.MY_IMAGE_NAME }}
+          image: ${{ env.IMAGE_NAME }}
           tags: |
-            ${{ steps.generate-tags.outputs.alias_tags }}
+            ${{ steps.generate-tags.outputs.TAGS }}
           build-args: |
-            BASE_IMAGE_NAME=${{ env.ARG_BASE_IMAGE_NAME }}
-            IMAGE_TAG=${{ env.ARG_IMAGE_TAG }}
+            BASE_IMAGE_NAME=${{ env.IMAGE_BASENAME }}
+            IMAGE_TAG=${{ env.IMAGE_TAG }}
           labels: ${{ steps.meta.outputs.labels }}
           oci: false
 
@@ -181,24 +140,29 @@ jobs:
       - name: Push To GHCR
         id: push
         run: |
-          for tag in ${{ steps.generate-tags.outputs.alias_tags }}; do
-            podman tag localhost/dune-os:${{ env.ARG_IMAGE_TAG }} ${{ steps.registry_case.outputs.lowercase }}/dune-os:$tag
-            podman push ${{ steps.registry_case.outputs.lowercase }}/dune-os:$tag
-            echo "digest=$(podman inspect ${{ steps.registry_case.outputs.lowercase }}/dune-os:$tag --format '{{.Digest}}')" >> $GITHUB_OUTPUT
+          for tag in ${{ steps.generate-tags.outputs.TAGS }}; do
+            podman tag localhost/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }} ${{ steps.registry_case.outputs.lowercase }}/${{ env.IMAGE_NAME }}:${tag}
+            podman push ${{ steps.registry_case.outputs.lowercase }}/${{ env.IMAGE_NAME }}:${tag}
+            echo "digest=$(podman inspect ${{ steps.registry_case.outputs.lowercase }}/${{ env.IMAGE_NAME }}:${tag} --format '{{.Digest}}')" >> $GITHUB_OUTPUT
           done
 
       # Sign container
       - uses: sigstore/cosign-installer@v3.8.2
+
+      - name: Write signing key to disk
+        run: echo "${{ secrets.SIGNING_SECRET }}" > cosign.key
+
       - name: Sign container image
         shell: bash
         run: |
-          cosign sign -y --key env://COSIGN_PRIVATE_KEY ${{ steps.registry_case.outputs.lowercase }}/dune-os:${{ env.ARG_IMAGE_TAG }}@${{ steps.push.outputs.digest }}
+          cosign sign -y --key cosign.key \
+          ${{ steps.registry_case.outputs.lowercase }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}@${{ steps.push.outputs.digest }}
         env:
           COSIGN_EXPERIMENTAL: false
-          COSIGN_PRIVATE_KEY: ${{ secrets.SIGNING_SECRET }}
+          COSIGN_PASSWORD: ""
 
-      - name: Cleanup build artifacts
+      # Clean up buildah/podman images and containers
+      - name: Cleanup
         run: |
-          # Clean up buildah/podman images and containers
           podman system prune -f
           buildah prune -f

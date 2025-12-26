@@ -2,7 +2,7 @@
 
 echo "::group:: ===$(basename "$0")==="
 
-set -ouex pipefail
+set -euox pipefail
 
 # Set up COSMIC
 dnf5 -y swap @gnome-desktop @cosmic-desktop

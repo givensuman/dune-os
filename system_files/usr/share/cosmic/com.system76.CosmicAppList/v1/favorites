@@ -2,6 +2,6 @@
     "com.system76.CosmicFiles",
     "org.system76.CosmicStore",
     "org.mozilla.firefox",
-    "com.mitchellh.ghostty",
+    "com.mitchellh.ghostty-toolbox",
     "io.podman_desktop.PodmanDesktop",
 ]

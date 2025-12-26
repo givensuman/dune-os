@@ -1,16 +1,20 @@
-name: build-isos
-
+---
+name: "build dune-os iso file"
 on:
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
   workflow_call:
+
+env:
+  IMAGE_NAME: "dune-os"
+  IMAGE_TAG: "stable"
+  MAJOR_VERSION: "43"
 
 concurrency:
   group: ${{ github.workflow }}
   cancel-in-progress: true
-
-env:
-  image_name: "dune-os"
-  major_version: "43"
 
 jobs:
   build-iso:
@@ -20,41 +24,22 @@ jobs:
       packages: write
       id-token: write
     steps:
-      - name: Free Disk Space (Ubuntu)
-        uses: jlumbroso/free-disk-space@v1.3.1
-
       - name: Checkout Repo
         uses: actions/checkout@v4
 
-      - name: Set Image Tag
-        id: generate-tag
-        shell: bash
-        run: |
-          TAG="stable"
-
-          if [[ -n "${{ github.event.number }}" ]]; then
-            TAG="pr-${{ github.event.number }}"
-          fi
-
-          if [[ "${{ github.ref_name }}" == "dev" ]]; then
-            TAG="dev"
-          fi
-
-          echo "tag=${TAG}" >> $GITHUB_OUTPUT
-
       - name: Build ISOs
-        uses: jasonn3/build-container-installer@v1.2.4
+        uses: jasonn3/build-container-installer@v1.4.0
         id: build
         with:
           arch: x86_64
-          image_name: ${{ env.image_name }}
+          image_name: ${{ env.IMAGE_NAME }}
           image_repo: ghcr.io/givensuman
           variant: "base"
-          version: ${{ env.major_version }}
-          image_tag: ${{ steps.generate-tag.outputs.tag }}
+          version: ${{ env.MAJOR_VERSION }}
+          image_tag: ${{ env.IMAGE_TAG }}
           secure_boot_key_url: "https://github.com/ublue-os/akmods/raw/main/certs/public_key.der"
           enrollment_password: "universalblue"
-          iso_name: ${{ env.image_name }}-${{ steps.generate-tag.outputs.tag }}.iso
+          iso_name: ${{ env.IMAGE_NAME }}-${{ env.IMAGE_TAG }}.iso
           enable_cache_dnf: "true"
           enable_cache_skopeo: "true"
           enable_flatpak_dependencies: "false"
@@ -72,7 +57,7 @@ jobs:
       - name: Upload ISOs and Checksum to Job Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.image_name }}-${{ steps.generate-tag.outputs.tag }}-${{ env.major_version}}
+          name: ${{ env.IMAGE_NAME }}-${{ env.IMAGE_TAG }}-${{ env.MAJOR_VERSION }}
           path: ${{ steps.upload-directory.outputs.iso-upload-dir }}
           if-no-files-found: error
           retention-days: 0

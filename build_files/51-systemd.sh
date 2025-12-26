@@ -2,13 +2,12 @@
 
 echo "::group:: ===$(basename "$0")==="
 
-set -eoux pipefail
+set -euox pipefail
 
-systemctl enable brew-directory-fix.service
-systemctl enable brew-setup.service
 systemctl enable dconf-update.service
 systemctl enable flatpak-preinstall.service
 systemctl enable libvirtd-setup.service
+systemctl enable toolbox-mount.service
 systemctl enable ublue-fix-hostname.service
 
 echo "::endgroup::"
